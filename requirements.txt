@@ -1,0 +1,30 @@
+# Core runtime
+torch
+torchvision
+torchaudio
+
+# vLLM server (fast inference + OpenAI-compatible API)
+vllm
+
+# Hugging Face utilities
+huggingface_hub
+transformers 
+datasets>=2.14.0
+pyarrow>=10.0.0,<15.0.0
+accelerate
+
+# LangChain core
+langchain
+langchain_community
+langchain_openai
+langchain-core
+langchain_dartmouth
+
+# OpenAI client (to call vLLM server)
+openai
+matplotlib
+tqdm
+
+# Optional: Weights & Biases for experiment tracking and visualization
+wandb
+weave

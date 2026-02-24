@@ -1,0 +1,22 @@
+{
+    "Vitals-and-Hematology": "What information is provided about the patient’s vital signs or hematology results (e.g., blood counts, hemoglobin, hematocrit, etc.)?",
+    "Eyes-Ears-Nose-Throat": "What abnormalities or findings are described related to the patient’s eyes, ears, nose, or throat?",
+    "Neurology": "What neurological signs, symptoms, or findings are mentioned (e.g., motor skills, reflexes, sensation, mental status)?",
+    "Cardiovascular-System": "What findings or observations are mentioned about the patient’s cardiovascular system (e.g., heart rate, murmurs, blood pressure, circulation)?",
+    "Respiratory-System": "What respiratory signs, symptoms, or findings are reported (e.g., breathing difficulty, cough, chest sounds, oxygen levels)?",
+    "Gastrointestinal-System": "What gastrointestinal symptoms or findings are described (e.g., nausea, vomiting, abdominal pain, stool characteristics, liver findings)?",
+    "Genitourinary-System": "What findings are mentioned regarding the genitourinary system (e.g., urine output, infections, reproductive system issues)?",
+    "Musculoskeletal-System": "What musculoskeletal symptoms or findings are mentioned (e.g., muscle tone, joint abnormalities, weakness, pain)?",
+    "Dermatology": "What skin-related findings or abnormalities are reported (e.g., rashes, pigmentation, lesions)?",
+    "Lymphatic-System": "What lymphatic system findings are mentioned (e.g., swollen glands, lymph node enlargement)?",
+    "Endocrinology": "What endocrine or metabolic abnormalities are described (e.g., hormone levels, thyroid, adrenal, or pancreatic findings)?",
+    "Pregnancy": "Is there any information indicating pregnancy status, history, or related complications?",
+    "Laboratory-and-Imaging": "What laboratory test results or imaging findings are reported (e.g., MRI, CT, X-ray, biochemical tests)?",
+    "Patient-History": "What relevant medical, family, or social history is provided about the patient?",
+    "Age-at-Presentation": "What is the patient’s age at the time of presentation or diagnosis?",
+    "Age-of-Onset": "At what age did the symptoms or condition first appear?",
+    "Confirmed-Diagnosis-IEM": "What is the confirmed diagnosis related to the inborn error of metabolism (IEM) in this case?",
+    "IEM-Treatment": "What treatments, medications, or management strategies were used for the inborn error of metabolism?"
+}  
+               
+      

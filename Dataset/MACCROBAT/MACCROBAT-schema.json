@@ -1,0 +1,121 @@
+{
+  "Sign_symptom": {
+    "Area": "What area or region of the body is affected by the sign or symptom?",
+    "Biological_attribute": "What biological attribute or property is associated with the sign symptom?",
+    "Biological_structure": "What body part or anatomical structure is affected by the sign or symptom?",
+    "Color": "What color is associated with the sign symptom?",
+    "Detailed_description": "What are the specific details or characteristics of the sign symptom?",
+    "Distance": "What is the distance or spatial extent related to the sign symptom?",
+    "Frequency": "How frequently or how often did the sign symptom occur?",
+    "History": "What is the medical history relevant to the sign symptom?",
+    "Lab_value": "What are the laboratory values, measurements, or numerical results for the sign symptom?",
+    "Mass": "What is the mass or weight related to the sign symptom?",
+    "Other_entity": "What other entity or object is related to the sign symptom?",
+    "Qualitative_concept": "What qualitative characteristics or concepts describe the sign symptom?",
+    "Quantitative_concept": "What quantitative measurements or values are associated with the sign symptom?",
+    "Severity": "How severe or intense is the sign or symptom?",
+    "Shape": "What is the shape or form of the sign symptom?",
+    "Subject": "Who is the subject or patient involved in the sign symptom?",
+    "Texture": "What is the texture or surface quality of the sign symptom?",
+    "Volume": "What is the volume or capacity related to the sign symptom?"
+  },
+  "Disease_disorder": {
+    "Area": "What area or region is affected by the disease disorder?",
+    "Biological_attribute": "What biological attribute or property is associated with the disease disorder?",
+    "Biological_structure": "What body part or anatomical structure is affected by the disease or disorder?",
+    "Detailed_description": "What are the specific details or characteristics of the disease disorder?",
+    "Distance": "What is the distance or spatial extent related to the disease disorder?",
+    "Lab_value": "What are the laboratory values, measurements, or numerical results for the disease disorder?",
+    "Nonbiological_location": "Where did the disease disorder occur (location, facility, or setting)?",
+    "Qualitative_concept": "What qualitative characteristics or concepts describe the disease disorder?",
+    "Quantitative_concept": "What quantitative measurements or values are associated with the disease disorder?",
+    "Severity": "What is the severity or stage of the disease or disorder?",
+    "Shape": "What is the shape or form of the disease disorder?",
+    "Subject": "Who is the subject or patient involved in the disease disorder?",
+    "Volume": "What is the volume or capacity related to the disease disorder?"
+  },
+  "Clinical_event": {
+    "Biological_structure": "What body part or anatomical structure is involved in the clinical event?",
+    "Detailed_description": "What are the specific details or characteristics of the clinical event?",
+    "Frequency": "How frequently or how often did the clinical event occur?",
+    "Lab_value": "What are the laboratory values, measurements, or numerical results for the clinical event?",
+    "Nonbiological_location": "Where did the clinical event occur?",
+    "Quantitative_concept": "What quantitative measurements or values are associated with the clinical event?",
+    "Subject": "Who is the subject or patient involved in the clinical event?",
+    "Volume": "What is the volume or capacity related to the clinical event?"
+  },
+  "Diagnostic_procedure": {
+    "Administration": "How was the diagnostic procedure administered or delivered?",
+    "Age": "What is the age of the subject in the diagnostic procedure?",
+    "Area": "What area or region is affected by the diagnostic procedure?",
+    "Biological_structure": "What anatomical structure or body part was examined or tested in the diagnostic procedure?",
+    "Color": "What color is associated with the diagnostic procedure?",
+    "Detailed_description": "What are the specific details or characteristics of the diagnostic procedure?",
+    "Distance": "What is the distance or spatial extent related to the diagnostic procedure?",
+    "Frequency": "How frequently or how often did the diagnostic procedure occur?",
+    "Lab_value": "What were the test results, measurements, or laboratory values from the diagnostic procedure?",
+    "Mass": "What is the mass or weight related to the diagnostic procedure?",
+    "Nonbiological_location": "Where did the diagnostic procedure occur (location, facility, or setting)?",
+    "Qualitative_concept": "What qualitative characteristics or concepts describe the diagnostic procedure?",
+    "Quantitative_concept": "What quantitative measurements or values are associated with the diagnostic procedure?",
+    "Severity": "What is the severity or intensity of the diagnostic procedure?",
+    "Shape": "What is the shape or form of the diagnostic procedure?",
+    "Subject": "Who is the subject or patient involved in the diagnostic procedure?",
+    "Texture": "What is the texture or surface quality of the diagnostic procedure?",
+    "Volume": "What is the volume or capacity related to the diagnostic procedure?"
+  },
+  "Activity": {
+    "Biological_structure": "What biological structure or anatomical part is involved in the activity?",
+    "Detailed_description": "What are the specific details or characteristics of the activity?",
+    "Frequency": "How frequently or how often did the activity occur?",
+    "Lab_value": "What are the laboratory values, measurements, or numerical results for the activity?",
+    "Nonbiological_location": "Where did the activity occur (location, facility, or setting)?",
+    "Other_entity": "What other entity or object is related to the activity?",
+    "Quantitative_concept": "What quantitative measurements or values are associated with the activity?"
+  },
+  "Medication": {
+    "Administration": "How is the medication administered (route of administration)?",
+    "Biological_structure": "What biological structure or anatomical part is involved in the medication?",
+    "Detailed_description": "What are the specific details or characteristics of the medication?",
+    "Dosage": "What is the dosage, amount, or quantity of the medication?",
+    "Frequency": "How frequently or how often is the medication administered?",
+    "Lab_value": "What are the laboratory values, measurements, or numerical results for the medication?",
+    "Nonbiological_location": "Where did the medication occur (location, facility, or setting)?",
+    "Quantitative_concept": "What quantitative measurements or values are associated with the medication?",
+    "Volume": "What is the volume or capacity related to the medication?"
+  },
+  "Therapeutic_procedure": {
+    "Administration": "How was the therapeutic procedure administered or delivered?",
+    "Area": "What area or region is affected by the therapeutic procedure?",
+    "Biological_structure": "What body part or anatomical structure is targeted by the therapeutic procedure?",
+    "Detailed_description": "What are the specific details or characteristics of the therapeutic procedure?",
+    "Distance": "What is the distance or spatial extent related to the therapeutic procedure?",
+    "Dosage": "What is the dosage, amount, or quantity used in the therapeutic procedure?",
+    "Frequency": "How frequently or how often did the therapeutic procedure occur?",
+    "Lab_value": "What are the laboratory values, measurements, or numerical results for the therapeutic procedure?",
+    "Nonbiological_location": "Where did the therapeutic procedure occur (location, facility, or setting)?",
+    "Other_entity": "What other entity or object is related to the therapeutic procedure?",
+    "Qualitative_concept": "What qualitative characteristics or concepts describe the therapeutic procedure?",
+    "Quantitative_concept": "What quantitative measurements or values are associated with the therapeutic procedure?",
+    "Subject": "Who is the subject or patient involved in the therapeutic procedure?"
+  },
+  "Outcome": {
+    "Age": "What is the age of the subject in the outcome?",
+    "Detailed_description": "What are the specific details or characteristics of the outcome?",
+    "Nonbiological_location": "Where did the outcome occur (location, facility, or setting)?",
+    "Subject": "Who is the subject or patient involved in the outcome?"
+  },
+  "Lab_value": {
+    "Biological_structure": "What biological structure or anatomical part is involved in the lab value?",
+    "Color": "What color is associated with the lab value?",
+    "Detailed_description": "What are the specific details or characteristics of the lab value?",
+    "Severity": "What is the severity or intensity of the lab value?"
+  },
+  "Other_event": {
+    "Biological_structure": "What biological structure or anatomical part is involved in the other event?",
+    "Detailed_description": "What are the specific details or characteristics of the other event?",
+    "Nonbiological_location": "Where did the other event occur (location, facility, or setting)?",
+    "Quantitative_concept": "What quantitative measurements or values are associated with the other event?",
+    "Severity": "What is the severity or intensity of the other event?"
+  }
+}

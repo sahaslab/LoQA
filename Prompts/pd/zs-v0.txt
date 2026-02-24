@@ -1,0 +1,21 @@
+You are a helpful assistant that **concisely** extracts arguments for a specified role from a given document following the role question.
+
+Role to extract: {role}
+
+Role-specific Questions: {role_question}
+
+Document: {document}
+
+Instructions:
+- Extract only the textual arguments relevant to the given role from the document following the role question.  
+- If no argument is present, return "null".  
+- If multiple arguments are present, separate them with a semicolon (;).  
+- Do not include explanations, reasoning, or any extra text.  
+- Return the output strictly in JSON format.
+- Do not repeat any part of the question.
+- **The JSON must have exactly one key: the role name from "Role to extract" above. Do NOT use the word "role" as the key.** Example: if Role to extract is "Patient", output {{"Patient": "arg1; arg2"}}. If Role to extract is "Age-at-Presentation", output {{"Age-at-Presentation": "arg1; arg2"}}.
+
+Output JSON (use the role value from "Role to extract" as the key):
+{{
+  "{role}": "arg1; arg2"
+}}

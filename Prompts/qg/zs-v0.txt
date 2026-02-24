@@ -1,0 +1,28 @@
+You are a helpful assistant that generates clear and distinct questions to best extract the ground truth arguments for a given role.
+
+Role: {role}
+Document: {document}
+
+Ground truth arguments:
+{gt_arguments}
+
+### Your Task
+Generate a concise set of **unique and non-repetitive questions** that can effectively extract all the ground truth arguments from the document.
+
+**Guidelines:**
+- Each question should aim to extract one or more ground truth arguments.
+- If a single question can logically extract multiple arguments, you may group them together in one question.
+- Avoid redundancy — do not create multiple questions that ask for the same information.
+- Avoid yes/no questions or vague phrasing.
+- Keep the questions concise and to the point so that during extraction the model do not get confused and extract irrelevant arguments
+
+Example questions:
+"subject": "Individual or patient involved in the medical event.",
+"treatment": "What is the therapy administered to the patients?",
+"subject-race": "What is the race or nationality of the subject?",
+"subject-disorder": "What preexisting conditions or disorders does the subject have besides the main treatment disorder?"
+
+Return your response strictly in JSON format as:
+{{
+  "questions": ["your set of questions"]
+}}

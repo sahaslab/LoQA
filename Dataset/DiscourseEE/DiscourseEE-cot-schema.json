@@ -1,0 +1,133 @@
+{
+        "taking-moud": {
+          "core-arguments": {
+            "subject/patient": "1. Look for any mention of a person, patient, or individual in the document.\n2. Are they described by name, pronoun, or general reference?\n3. Is there any demographic or identifying detail linked to them?\n4. Extract the description of the individual involved.",
+      
+            "treatment": "1. Scan for any mention of medical treatments, therapies, or prescribed regimens.\n2. Is the treatment explicitly named or described?\n3. Is the subject currently undergoing or previously prescribed this treatment?\n4. Extract the treatment(s) the subject is prescribed or undergoing.",
+      
+            "effects": "1. Look for mentions of outcomes, results, improvements, or side effects.\n2. Are these effects positive or negative?\n3. Are they directly linked to the treatment mentioned?\n4. Extract the outcomes or side effects of the treatments."
+          },
+          "type-specific-arguments": {
+            "medications": "1. Scan for any drug names, brand names, or generic medication references.\n2. Are they being used as part of the treatment?\n3. Are multiple medications mentioned?\n4. Extract all drugs/medications used in the treatment.",
+      
+            "dosage": "1. Look for any numerical values followed by units.\n2. Is this the current dosage or a previous dosage?\n3. Is it linked to a specific medication?\n4. Extract the current or previous dosage of the medications.",
+      
+            "treatment-duration": "1. Search for time-related phrases indicating how long medication has been taken.\n2. Is the duration linked to taking a specific medication?\n3. Is it ongoing or completed?\n4. Extract how long the subject has been taking the medication.",
+      
+            "manner": "1. Look for how the medication is administered.\n2. Are there keywords indicating the route of administration?\n3. Is it explicitly stated or implied by the medication type?\n4. Extract the method of administration.",
+      
+            "frequency": "1. Search for frequency indicators in relation to medication intake.\n2. Is the frequency linked to a specific medication?\n3. Is this a prescribed frequency or self-reported?\n4. Extract how often the medications are taken.",
+      
+            "timing": "1. Look for time-of-day references related to medication intake.\n2. Is this timing linked to a specific medication?\n3. Is it a routine or occasional practice?\n4. Extract when the medications are taken.",
+      
+            "purpose": "1. Look for reasons or intentions behind taking the medication.\n2. Are there phrases indicating the goal of the medication?\n3. Is the purpose explicitly stated or inferred from context?\n4. Extract the reasons or intentions behind the medication."
+          },
+          "subject-effect-arguments": {
+            "age": "1. Look for any numerical age or age-related references.\n2. Is the age linked to the subject/patient?\n3. Extract the age of the subject/patient.",
+      
+            "gender": "1. Look for gender indicators or pronouns.\n2. Is it explicitly stated or inferred?\n3. Extract the gender of the subject/patient.",
+      
+            "conditions": "1. Scan for any mention of pre-existing conditions, diagnoses, or co-morbidities.\n2. Are they medical or substance-related?\n3. Are they stated as current or historical?\n4. Extract the pre-existing or co-morbid conditions.",
+      
+            "side-effects": "1. Look for any negative or unexpected effects from the medication.\n2. Are specific symptoms mentioned?\n3. Are they directly attributed to the medication?\n4. Extract the side effects the subject is experiencing or expects.",
+      
+            "severity": "1. Look for severity descriptors.\n2. Are they linked to a specific side effect?\n3. Is the severity explicitly rated or described subjectively?\n4. Extract how severe the side effects are.",
+      
+            "start-time": "1. Search for when side effects began.\n2. Is this linked to a specific medication or dosage change?\n3. Extract when the subject started experiencing the side effects.",
+      
+            "side-effect-duration": "1. Look for how long side effects have persisted.\n2. Are they ongoing or resolved?\n3. Extract how long the subject has been experiencing the side effects.",
+      
+            "intervention": "1. Look for any actions taken to manage side effects.\n2. Are there mentions of dosage adjustments, additional medications, lifestyle changes, or consultations?\n3. Are these interventions self-directed or prescribed?\n4. Extract the measures taken to address or reduce side effects."
+          }
+        },
+      
+        "relapse": {
+          "core-arguments": {
+            "subject/patient": "1. Look for any mention of a person experiencing relapse.\n2. Are they described by name, pronoun, or general reference?\n3. Is there any identifying detail about them?\n4. Extract the description of the individual experiencing the relapse.",
+      
+            "relapse-event": "1. Scan for any description of returning to substance use.\n2. Are there keywords indicating a relapse occurrence?\n3. Is the event described in detail?\n4. Extract how the occurrence of taking or using addictive substances happened.",
+      
+            "resuming-moud-after-relapse": "1. Look for any mention of actions taken or planned after the relapse.\n2. Are there references to restarting medication or treatment?\n3. Is this something the subject has done or intends to do?\n4. Extract the events the subject is doing or intends to follow after the last relapse dose.",
+      
+            "effects": "1. Look for outcomes or consequences following the relapse.\n2. Are they physical, emotional, or treatment-related?\n3. Are they directly linked to the relapse event?\n4. Extract the outcomes or side effects."
+          },
+          "type-specific-arguments": {
+            "condition": "1. Scan for the subject's substance use history or disorder.\n2. Are there mentions of prior addiction, recovery, or treatment history?\n3. Was the subject in active recovery or already recovered?\n4. Extract the substance use history/disorder from which the subject had previously recovered or was recovering.",
+      
+            "trigger": "1. Look for factors or events that led to the relapse.\n2. Are triggers explicitly stated or implied?\n3. Are there multiple contributing factors?\n4. Extract the factors or events that contributed to the relapse.",
+      
+            "existing/current-medications": "1. Look for medications the subject was on before the relapse.\n2. Were they still taking medication at the time of relapse?\n3. Had they stopped or changed medications?\n4. Extract which medication the subject used before the relapse.",
+      
+            "relapse-substance": "1. Identify the specific substance used during the relapse.\n2. Are there any drug or substance names mentioned?\n3. Is the quantity or form mentioned?\n4. Extract which substance was used in the relapse.",
+      
+            "relapse-duration": "1. Look for how long the relapse lasted.\n2. Are there time references indicating duration?\n3. Is the relapse a single event or ongoing?\n4. Extract how long the relapse persisted.",
+      
+            "relapse-intervention": "1. Scan for actions taken to address or prevent the relapse.\n2. Are there mentions of seeking help or restarting treatment?\n3. Are these actions taken by the subject or others?\n4. Extract the measures taken to address or prevent the relapse.",
+      
+            "waiting-time": "1. Look for any mention of time waited after the last relapse dose.\n2. Are there references indicating a waiting period?\n3. Is this in the context of restarting medication?\n4. Extract the waiting time after the last dose of relapse."
+          },
+          "subject-effect-arguments": {
+            "age": "1. Look for any numerical age or age-related references.\n2. Is the age linked to the subject/patient?\n3. Extract the age of the subject/patient.",
+      
+            "gender": "1. Look for gender indicators or pronouns.\n2. Is it explicitly stated or inferred?\n3. Extract the gender of the subject/patient.",
+      
+            "conditions": "1. Scan for pre-existing conditions or co-morbidities.\n2. Are they medical or substance-related?\n3. Extract the pre-existing or co-morbid conditions.",
+      
+            "side-effects": "1. Look for side effects experienced after or during the relapse.\n2. Are they physical or psychological?\n3. Extract the side effects the subject is experiencing or expects.",
+      
+            "severity": "1. Look for severity descriptors linked to side effects.\n2. Is the severity explicitly described?\n3. Extract how severe the side effects are.",
+      
+            "start-time": "1. Search for when side effects began in relation to the relapse.\n2. Is this linked to the relapse substance or resuming medication?\n3. Extract when the subject started experiencing the side effects.",
+      
+            "side-effect-duration": "1. Look for how long side effects from the relapse have lasted.\n2. Are they ongoing or resolved?\n3. Extract how long the subject has been experiencing the side effects.",
+      
+            "intervention": "1. Look for actions taken to manage side effects from the relapse.\n2. Are there medical or self-care interventions mentioned?\n3. Extract the measures taken to address or reduce side effects."
+          }
+        },
+      
+        "tapering": {
+          "core-arguments": {
+            "subject/patient": "1. Look for any mention of a person undergoing tapering.\n2. Are they described by name, pronoun, or general reference?\n3. Extract the description of the individual involved.",
+      
+            "effects": "1. Look for outcomes or side effects during or after tapering.\n2. Are they positive or negative?\n3. Extract the outcomes or side effects of the treatments.",
+      
+            "tapering-event": "1. Scan for a description of the tapering process.\n2. Are drugs, start dosage, reduction steps, duration, and goal dosage mentioned?\n3. Is the tapering plan described as a whole or in steps?\n4. Extract the tapering steps including drugs, start dosage, duration, and goal dosage."
+          },
+          "type-specific-arguments": {
+            "condition": "1. Look for the subject's state or situation before tapering began.\n2. Were they stable, struggling, or at a certain dosage?\n3. Extract the state or situation of the subject before tapering.",
+      
+            "trigger": "1. Scan for reasons the subject decided to taper.\n2. Are there mentions of motivations or contributing factors?\n3. Extract the factors or events that contributed to tapering.",
+      
+            "start-time": "1. Look for when the tapering process began.\n2. Are there specific dates or relative time references?\n3. Extract when they started tapering.",
+      
+            "type": "1. Determine if the tapering is self-directed or medically supervised.\n2. Are there mentions indicating who initiated or manages the taper?\n3. Extract whether the subject is self-tapering or following prescribed tapering.",
+      
+            "taper-medications": "1. Scan for the specific drugs/medications being tapered.\n2. Are they the same as the original medication or different?\n3. Extract the drugs/medications used during tapering.",
+      
+            "initial-dosage": "1. Look for the dosage at the beginning of the taper.\n2. Is it clearly stated with units?\n3. Extract the initial dosages of the drugs.",
+      
+            "current-dosage": "1. Look for the dosage the subject is currently at.\n2. Is this a mid-taper dosage or the final dosage?\n3. Extract the current dosage of the drugs.",
+      
+            "goal-dosage": "1. Look for the target dosage the subject wants to reach.\n2. Is the goal complete cessation or a lower maintenance dose?\n3. Extract the goal dosage the subject wants to achieve.",
+      
+            "target-duration": "1. Search for the planned timeline for the taper.\n2. Are there references indicating a timeframe?\n3. Extract how long it takes to go from the start to the intended dosage or quit."
+          },
+          "subject-effect-arguments": {
+            "age": "1. Look for any numerical age or age-related references.\n2. Is the age linked to the subject/patient?\n3. Extract the age of the subject/patient.",
+      
+            "gender": "1. Look for gender indicators or pronouns.\n2. Is it explicitly stated or inferred?\n3. Extract the gender of the subject/patient.",
+      
+            "conditions": "1. Scan for pre-existing conditions or co-morbidities.\n2. Are they relevant to the tapering process?\n3. Extract the pre-existing or co-morbid conditions.",
+      
+            "side-effects": "1. Look for side effects experienced during or after tapering.\n2. Are they withdrawal-related?\n3. Extract the side effects the subject is experiencing or expects.",
+      
+            "severity": "1. Look for severity descriptors linked to tapering side effects.\n2. Is the severity explicitly described?\n3. Extract how severe the side effects are.",
+      
+            "start-time": "1. Search for when tapering side effects began.\n2. Is this linked to a specific dosage reduction step?\n3. Extract when the subject started experiencing the side effects.",
+      
+            "side-effect-duration": "1. Look for how long tapering side effects have lasted.\n2. Are they ongoing or resolved?\n3. Extract how long the subject has been experiencing the side effects.",
+      
+            "intervention": "1. Look for actions taken to manage tapering side effects.\n2. Are there mentions of pausing the taper, comfort medications, or dosage adjustments?\n3. Extract the measures taken to address or reduce side effects."
+          }
+        }
+      }

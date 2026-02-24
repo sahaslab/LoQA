@@ -1,0 +1,37 @@
+{
+        "main-arguments": {
+          "subject": "1. Look for any mention of a person, patient, or individual involved in the medical event.\n2. Are they described by name, pronoun, or general reference?\n3. Is there any demographic or identifying detail linked to them?\n4. Extract the description of the individual or patient involved in the medical event.",
+      
+          "treatment": "1. Scan for any mention of therapies, treatments, or medical interventions administered.\n2. Is the treatment explicitly named or described?\n3. Is the subject currently undergoing or previously administered this treatment?\n4. Extract the therapy administered to the patients.",
+      
+          "effect": "1. Look for mentions of outcomes, results, adverse events, or side effects.\n2. Are these effects positive or negative?\n3. Are they directly linked to the treatment mentioned?\n4. Extract the outcomes or side effects of the treatments."
+        },
+      
+        "subject": {
+          "subject-age": "1. Look for any numerical age or age-related references.\n2. Is the age linked to the subject/patient?\n3. Is it stated in specific units or as a range?\n4. Extract the age of the subject.",
+      
+          "subject-gender": "1. Look for gender indicators or pronouns.\n2. Is it explicitly stated or inferred?\n3. Extract the gender of the subject.",
+      
+          "subject-population": "1. Scan for any numerical reference to patient count or population size.\n2. Is it a specific number or a range?\n3. Is it linked to a treatment group or study cohort?\n4. Extract the number of patients receiving the treatment.",
+      
+          "subject-race": "1. Look for any mention of race, ethnicity, or nationality.\n2. Is it explicitly stated or inferred from context?\n3. Is it linked to the subject/patient?\n4. Extract the race or nationality of the subject.",
+      
+          "subject-disorder": "1. Scan for any mention of preexisting conditions or co-morbidities.\n2. Are these disorders separate from the target disorder of the treatment?\n3. Are they stated as current or historical?\n4. Extract the preexisting conditions that the subject suffers other than the target disorder of the treatment."
+        },
+      
+        "treatment": {
+          "treatment-drug": "1. Scan for any drug names, brand names, or generic medication references.\n2. Are they being used as therapy in the medical event?\n3. Are multiple drugs mentioned?\n4. Extract the drugs used as therapy in the event.",
+      
+          "treatment-dosage": "1. Look for any numerical values followed by units indicating drug amount.\n2. Is the dosage linked to a specific drug?\n3. Is it a single dose or cumulative amount?\n4. Extract the amount of drug given.",
+      
+          "treatment-freq": "1. Search for frequency indicators related to drug administration.\n2. Is the frequency linked to a specific drug?\n3. Is it prescribed or self-reported?\n4. Extract the frequency of drug use.",
+      
+          "treatment-route": "1. Look for how the drug is administered.\n2. Are there keywords indicating the route of administration?\n3. Is it explicitly stated or implied by the drug form?\n4. Extract the route of drug administration.",
+      
+          "treatment-time_elapsed": "1. Scan for any mention of time between drug administration and the occurrence of the effect.\n2. Is the time stated in specific units or as a relative reference?\n3. Is it linked to a specific drug and effect pair?\n4. Extract the time elapsed after the drug was administered to the occurrence of the effect.",
+      
+          "treatment-duration": "1. Look for how long the patient has been taking the medication.\n2. Is the duration stated in specific units or as a relative reference?\n3. Is it ongoing or completed?\n4. Extract how long the patient has been taking the medicine.",
+      
+          "treatment-disorder": "1. Scan for the target disorder or condition being treated.\n2. Is the disorder explicitly named or described?\n3. Is it clearly linked to the drug or treatment mentioned?\n4. Extract the target disorder of the medicine administration."
+        }
+      }

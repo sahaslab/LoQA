@@ -1,0 +1,219 @@
+{
+  "Sign_symptom": {
+    "Area": "1. Scan for any mention of a body region or area affected.\n2. Is it a general area or a specific anatomical region?\n3. Is it directly linked to the sign or symptom described?\n4. Extract the area or region of the body affected by the sign or symptom.",
+
+    "Biological_attribute": "1. Look for any biological property or attribute associated with the sign or symptom.\n2. Is there a measurable or observable biological characteristic mentioned?\n3. Is it directly related to the sign or symptom?\n4. Extract the biological attribute or property associated with the sign symptom.",
+
+    "Biological_structure": "1. Scan for any body part or anatomical structure mentioned.\n2. Is the structure explicitly named?\n3. Is it directly affected by the sign or symptom?\n4. Extract the body part or anatomical structure affected by the sign or symptom.",
+
+    "Color": "1. Look for any color descriptor in the document.\n2. Is the color linked to a visible sign or symptom?\n3. Is it describing a change from normal?\n4. Extract the color associated with the sign symptom.",
+
+    "Detailed_description": "1. Scan for any detailed characterization of the sign or symptom.\n2. Are there descriptive adjectives, modifiers, or qualifiers?\n3. Do they provide additional specificity beyond the name of the sign or symptom?\n4. Extract the specific details or characteristics of the sign symptom.",
+
+    "Distance": "1. Look for any spatial measurement or extent related to the sign or symptom.\n2. Is a numerical distance or spatial reference mentioned?\n3. Is it linked to the sign or symptom?\n4. Extract the distance or spatial extent related to the sign symptom.",
+
+    "Frequency": "1. Scan for any frequency or recurrence indicators.\n2. Is there a pattern of occurrence mentioned?\n3. Is it linked to the sign or symptom?\n4. Extract how frequently or how often the sign symptom occurred.",
+
+    "History": "1. Look for any prior medical history relevant to the sign or symptom.\n2. Are there past occurrences, familial history, or prior diagnoses mentioned?\n3. Is the history directly connected to the current sign or symptom?\n4. Extract the medical history relevant to the sign symptom.",
+
+    "Lab_value": "1. Scan for any laboratory values or numerical measurements.\n2. Are there specific test results or quantitative data?\n3. Are they directly associated with the sign or symptom?\n4. Extract the laboratory values, measurements, or numerical results for the sign symptom.",
+
+    "Mass": "1. Look for any mention of mass or weight.\n2. Is a numerical value with weight units mentioned?\n3. Is it linked to the sign or symptom?\n4. Extract the mass or weight related to the sign symptom.",
+
+    "Other_entity": "1. Scan for any other entity or object mentioned in relation to the sign or symptom.\n2. Is it a device, substance, or external factor?\n3. Is it directly related to the sign or symptom?\n4. Extract the other entity or object related to the sign symptom.",
+
+    "Qualitative_concept": "1. Look for any qualitative descriptors or concepts.\n2. Are there non-numerical characterizations of the sign or symptom?\n3. Do they describe nature, quality, or type?\n4. Extract the qualitative characteristics or concepts describing the sign symptom.",
+
+    "Quantitative_concept": "1. Scan for any quantitative measurements or values.\n2. Are there numerical data points associated with the sign or symptom?\n3. Are units of measurement provided?\n4. Extract the quantitative measurements or values associated with the sign symptom.",
+
+    "Severity": "1. Look for any severity or intensity descriptors.\n2. Is the severity explicitly graded or subjectively described?\n3. Is it linked to the sign or symptom?\n4. Extract how severe or intense the sign or symptom is.",
+
+    "Shape": "1. Scan for any shape or form descriptors.\n2. Is the morphology of the sign or symptom described?\n3. Is it linked to a visible or measurable finding?\n4. Extract the shape or form of the sign symptom.",
+
+    "Subject": "1. Look for any mention of the person experiencing the sign or symptom.\n2. Are they identified by name, pronoun, or general reference?\n3. Is the subject clearly linked to the sign or symptom?\n4. Extract who is the subject or patient involved in the sign symptom.",
+
+    "Texture": "1. Scan for any texture or surface quality descriptors.\n2. Is the texture of a lesion, growth, or affected area described?\n3. Is it linked to the sign or symptom?\n4. Extract the texture or surface quality of the sign symptom.",
+
+    "Volume": "1. Look for any volume or capacity measurements.\n2. Is a numerical volume value mentioned?\n3. Is it linked to the sign or symptom?\n4. Extract the volume or capacity related to the sign symptom."
+  },
+
+  "Disease_disorder": {
+    "Area": "1. Scan for any mention of a region affected by the disease or disorder.\n2. Is it a general or specific area?\n3. Is it directly linked to the disease or disorder?\n4. Extract the area or region affected by the disease disorder.",
+
+    "Biological_attribute": "1. Look for any biological property associated with the disease or disorder.\n2. Is there a measurable or observable characteristic?\n3. Is it directly related to the disease or disorder?\n4. Extract the biological attribute or property associated with the disease disorder.",
+
+    "Biological_structure": "1. Scan for any body part or anatomical structure affected.\n2. Is the structure explicitly named?\n3. Is it directly affected by the disease or disorder?\n4. Extract the body part or anatomical structure affected by the disease or disorder.",
+
+    "Detailed_description": "1. Look for any detailed characterization of the disease or disorder.\n2. Are there descriptive modifiers or qualifiers?\n3. Do they add specificity beyond the diagnosis name?\n4. Extract the specific details or characteristics of the disease disorder.",
+
+    "Distance": "1. Scan for any spatial measurement related to the disease or disorder.\n2. Is a numerical distance mentioned?\n3. Is it linked to the disease or disorder?\n4. Extract the distance or spatial extent related to the disease disorder.",
+
+    "Lab_value": "1. Look for any laboratory values or measurements.\n2. Are they diagnostic or monitoring results?\n3. Are they directly associated with the disease or disorder?\n4. Extract the laboratory values, measurements, or numerical results for the disease disorder.",
+
+    "Nonbiological_location": "1. Scan for any non-anatomical location or setting mentioned.\n2. Is it a facility, geographic location, or care setting?\n3. Is it linked to where the disease or disorder occurred or was diagnosed?\n4. Extract where the disease disorder occurred.",
+
+    "Qualitative_concept": "1. Look for any qualitative descriptors of the disease or disorder.\n2. Are there non-numerical characterizations?\n3. Do they describe the nature or type of the condition?\n4. Extract the qualitative characteristics or concepts describing the disease disorder.",
+
+    "Quantitative_concept": "1. Scan for any quantitative measurements or values.\n2. Are there numerical data associated with the disease or disorder?\n3. Are units provided?\n4. Extract the quantitative measurements or values associated with the disease disorder.",
+
+    "Severity": "1. Look for any severity or staging descriptors.\n2. Is the severity explicitly graded or described?\n3. Is it linked to the disease or disorder?\n4. Extract the severity or stage of the disease or disorder.",
+
+    "Shape": "1. Scan for any shape or form descriptors.\n2. Is the morphology of the disease or disorder described?\n3. Is it linked to a visible or measurable finding?\n4. Extract the shape or form of the disease disorder.",
+
+    "Subject": "1. Look for any mention of the person affected.\n2. Are they identified by name, pronoun, or general reference?\n3. Is the subject clearly linked to the disease or disorder?\n4. Extract who is the subject or patient involved in the disease disorder.",
+
+    "Volume": "1. Scan for any volume or capacity measurements.\n2. Is a numerical volume mentioned?\n3. Is it linked to the disease or disorder?\n4. Extract the volume or capacity related to the disease disorder."
+  },
+
+  "Clinical_event": {
+    "Biological_structure": "1. Scan for any body part or anatomical structure involved.\n2. Is the structure explicitly named?\n3. Is it directly involved in the clinical event?\n4. Extract the body part or anatomical structure involved in the clinical event.",
+
+    "Detailed_description": "1. Look for any detailed characterization of the clinical event.\n2. Are there descriptive modifiers or qualifiers?\n3. Do they add specificity to the event?\n4. Extract the specific details or characteristics of the clinical event.",
+
+    "Frequency": "1. Scan for any frequency or recurrence indicators.\n2. Is there a pattern of occurrence?\n3. Is it linked to the clinical event?\n4. Extract how frequently or how often the clinical event occurred.",
+
+    "Lab_value": "1. Look for any laboratory values or measurements.\n2. Are they related to the clinical event?\n3. Are they numerical or categorical?\n4. Extract the laboratory values, measurements, or numerical results for the clinical event.",
+
+    "Nonbiological_location": "1. Scan for any non-anatomical location or setting.\n2. Is it linked to where the clinical event occurred?\n3. Is it a facility or geographic reference?\n4. Extract where the clinical event occurred.",
+
+    "Quantitative_concept": "1. Look for any quantitative measurements or values.\n2. Are they associated with the clinical event?\n3. Are units provided?\n4. Extract the quantitative measurements or values associated with the clinical event.",
+
+    "Subject": "1. Scan for any mention of the person involved.\n2. Are they identified by name, pronoun, or general reference?\n3. Is the subject clearly linked to the clinical event?\n4. Extract who is the subject or patient involved in the clinical event.",
+
+    "Volume": "1. Look for any volume or capacity measurements.\n2. Is a numerical volume mentioned?\n3. Is it linked to the clinical event?\n4. Extract the volume or capacity related to the clinical event."
+  },
+
+  "Diagnostic_procedure": {
+    "Administration": "1. Scan for how the diagnostic procedure was performed or delivered.\n2. Is the method of administration explicitly described?\n3. Is it linked to the diagnostic procedure?\n4. Extract how the diagnostic procedure was administered or delivered.",
+
+    "Age": "1. Look for any age reference of the subject.\n2. Is the age linked to the time of the diagnostic procedure?\n3. Is it stated in specific units?\n4. Extract the age of the subject in the diagnostic procedure.",
+
+    "Area": "1. Scan for any region or area examined.\n2. Is it a general or specific area?\n3. Is it linked to the diagnostic procedure?\n4. Extract the area or region affected by the diagnostic procedure.",
+
+    "Biological_structure": "1. Look for any anatomical structure examined or tested.\n2. Is the structure explicitly named?\n3. Is it the target of the diagnostic procedure?\n4. Extract the anatomical structure or body part examined or tested in the diagnostic procedure.",
+
+    "Color": "1. Scan for any color descriptor related to the procedure findings.\n2. Is the color linked to a diagnostic observation?\n3. Is it describing a finding or result?\n4. Extract the color associated with the diagnostic procedure.",
+
+    "Detailed_description": "1. Look for any detailed characterization of the diagnostic procedure.\n2. Are there descriptive modifiers or technical details?\n3. Do they add specificity to the procedure?\n4. Extract the specific details or characteristics of the diagnostic procedure.",
+
+    "Distance": "1. Scan for any spatial measurement related to the procedure.\n2. Is a numerical distance mentioned?\n3. Is it linked to the diagnostic procedure?\n4. Extract the distance or spatial extent related to the diagnostic procedure.",
+
+    "Frequency": "1. Look for any frequency or recurrence of the procedure.\n2. Was the procedure repeated?\n3. Is there a pattern mentioned?\n4. Extract how frequently or how often the diagnostic procedure occurred.",
+
+    "Lab_value": "1. Scan for any test results or measurements from the procedure.\n2. Are there specific numerical values or ranges?\n3. Are they directly produced by the diagnostic procedure?\n4. Extract the test results, measurements, or laboratory values from the diagnostic procedure.",
+
+    "Mass": "1. Look for any mass or weight measurement.\n2. Is it linked to a finding from the diagnostic procedure?\n3. Is a numerical value provided?\n4. Extract the mass or weight related to the diagnostic procedure.",
+
+    "Nonbiological_location": "1. Scan for any non-anatomical location or setting.\n2. Is it where the diagnostic procedure was performed?\n3. Is it a facility or geographic reference?\n4. Extract where the diagnostic procedure occurred.",
+
+    "Qualitative_concept": "1. Look for any qualitative descriptors of the procedure or its findings.\n2. Are there non-numerical characterizations?\n3. Do they describe the nature or quality of the procedure?\n4. Extract the qualitative characteristics or concepts describing the diagnostic procedure.",
+
+    "Quantitative_concept": "1. Scan for any quantitative measurements or values.\n2. Are they associated with the diagnostic procedure?\n3. Are units provided?\n4. Extract the quantitative measurements or values associated with the diagnostic procedure.",
+
+    "Severity": "1. Look for any severity or intensity descriptors.\n2. Is the severity linked to findings from the procedure?\n3. Is it explicitly graded or described?\n4. Extract the severity or intensity of the diagnostic procedure.",
+
+    "Shape": "1. Scan for any shape or form descriptors.\n2. Is the morphology of a finding described?\n3. Is it linked to the diagnostic procedure?\n4. Extract the shape or form of the diagnostic procedure.",
+
+    "Subject": "1. Look for any mention of the person undergoing the procedure.\n2. Are they identified by name, pronoun, or general reference?\n3. Is the subject clearly linked to the diagnostic procedure?\n4. Extract who is the subject or patient involved in the diagnostic procedure.",
+
+    "Texture": "1. Scan for any texture or surface quality descriptors.\n2. Is the texture linked to a finding from the procedure?\n3. Is it explicitly described?\n4. Extract the texture or surface quality of the diagnostic procedure.",
+
+    "Volume": "1. Look for any volume or capacity measurements.\n2. Is a numerical volume mentioned?\n3. Is it linked to the diagnostic procedure?\n4. Extract the volume or capacity related to the diagnostic procedure."
+  },
+
+  "Activity": {
+    "Biological_structure": "1. Scan for any body part or anatomical structure involved in the activity.\n2. Is the structure explicitly named?\n3. Is it directly involved in the activity?\n4. Extract the biological structure or anatomical part involved in the activity.",
+
+    "Detailed_description": "1. Look for any detailed characterization of the activity.\n2. Are there descriptive modifiers or qualifiers?\n3. Do they add specificity to the activity?\n4. Extract the specific details or characteristics of the activity.",
+
+    "Frequency": "1. Scan for any frequency or recurrence of the activity.\n2. Is there a pattern of occurrence?\n3. Is it linked to the activity?\n4. Extract how frequently or how often the activity occurred.",
+
+    "Lab_value": "1. Look for any laboratory values or measurements related to the activity.\n2. Are there numerical results?\n3. Are they directly associated with the activity?\n4. Extract the laboratory values, measurements, or numerical results for the activity.",
+
+    "Nonbiological_location": "1. Scan for any non-anatomical location or setting.\n2. Is it where the activity occurred?\n3. Is it a facility or geographic reference?\n4. Extract where the activity occurred.",
+
+    "Other_entity": "1. Look for any other entity or object related to the activity.\n2. Is it a device, substance, or external factor?\n3. Is it directly related to the activity?\n4. Extract the other entity or object related to the activity.",
+
+    "Quantitative_concept": "1. Scan for any quantitative measurements or values.\n2. Are they associated with the activity?\n3. Are units provided?\n4. Extract the quantitative measurements or values associated with the activity."
+  },
+
+  "Medication": {
+    "Administration": "1. Scan for how the medication is administered.\n2. Is the route of administration explicitly described?\n3. Is it linked to the medication?\n4. Extract how the medication is administered.",
+
+    "Biological_structure": "1. Look for any body part or anatomical structure involved.\n2. Is the structure a target or site of medication delivery?\n3. Is it directly related to the medication?\n4. Extract the biological structure or anatomical part involved in the medication.",
+
+    "Detailed_description": "1. Scan for any detailed characterization of the medication.\n2. Are there descriptive modifiers, formulations, or brand details?\n3. Do they add specificity to the medication?\n4. Extract the specific details or characteristics of the medication.",
+
+    "Dosage": "1. Look for any dosage, amount, or quantity mentioned.\n2. Is a numerical value with units provided?\n3. Is it linked to the medication?\n4. Extract the dosage, amount, or quantity of the medication.",
+
+    "Frequency": "1. Scan for any frequency of medication administration.\n2. Is there a pattern or schedule mentioned?\n3. Is it linked to the medication?\n4. Extract how frequently or how often the medication is administered.",
+
+    "Lab_value": "1. Look for any laboratory values or measurements related to the medication.\n2. Are there monitoring results or drug levels?\n3. Are they associated with the medication?\n4. Extract the laboratory values, measurements, or numerical results for the medication.",
+
+    "Nonbiological_location": "1. Scan for any non-anatomical location or setting.\n2. Is it where the medication was administered?\n3. Is it a facility or care setting?\n4. Extract where the medication occurred.",
+
+    "Quantitative_concept": "1. Look for any quantitative measurements or values.\n2. Are they associated with the medication?\n3. Are units provided?\n4. Extract the quantitative measurements or values associated with the medication.",
+
+    "Volume": "1. Scan for any volume or capacity measurements.\n2. Is a numerical volume mentioned?\n3. Is it linked to the medication?\n4. Extract the volume or capacity related to the medication."
+  },
+
+  "Therapeutic_procedure": {
+    "Administration": "1. Scan for how the therapeutic procedure was performed or delivered.\n2. Is the method explicitly described?\n3. Is it linked to the therapeutic procedure?\n4. Extract how the therapeutic procedure was administered or delivered.",
+
+    "Area": "1. Look for any region or area targeted.\n2. Is it a general or specific area?\n3. Is it linked to the therapeutic procedure?\n4. Extract the area or region affected by the therapeutic procedure.",
+
+    "Biological_structure": "1. Scan for any body part or anatomical structure targeted.\n2. Is the structure explicitly named?\n3. Is it the target of the therapeutic procedure?\n4. Extract the body part or anatomical structure targeted by the therapeutic procedure.",
+
+    "Detailed_description": "1. Look for any detailed characterization of the therapeutic procedure.\n2. Are there descriptive modifiers or technical details?\n3. Do they add specificity to the procedure?\n4. Extract the specific details or characteristics of the therapeutic procedure.",
+
+    "Distance": "1. Scan for any spatial measurement related to the procedure.\n2. Is a numerical distance mentioned?\n3. Is it linked to the therapeutic procedure?\n4. Extract the distance or spatial extent related to the therapeutic procedure.",
+
+    "Dosage": "1. Look for any dosage or quantity used.\n2. Is a numerical value with units provided?\n3. Is it linked to the therapeutic procedure?\n4. Extract the dosage, amount, or quantity used in the therapeutic procedure.",
+
+    "Frequency": "1. Scan for any frequency or recurrence of the procedure.\n2. Was the procedure repeated?\n3. Is there a pattern mentioned?\n4. Extract how frequently or how often the therapeutic procedure occurred.",
+
+    "Lab_value": "1. Look for any laboratory values or measurements.\n2. Are they related to the therapeutic procedure?\n3. Are they numerical or categorical?\n4. Extract the laboratory values, measurements, or numerical results for the therapeutic procedure.",
+
+    "Nonbiological_location": "1. Scan for any non-anatomical location or setting.\n2. Is it where the therapeutic procedure was performed?\n3. Is it a facility or geographic reference?\n4. Extract where the therapeutic procedure occurred.",
+
+    "Other_entity": "1. Look for any other entity or object related to the procedure.\n2. Is it a device, substance, or external factor?\n3. Is it directly related to the therapeutic procedure?\n4. Extract the other entity or object related to the therapeutic procedure.",
+
+    "Qualitative_concept": "1. Scan for any qualitative descriptors of the procedure.\n2. Are there non-numerical characterizations?\n3. Do they describe the nature or quality of the procedure?\n4. Extract the qualitative characteristics or concepts describing the therapeutic procedure.",
+
+    "Quantitative_concept": "1. Look for any quantitative measurements or values.\n2. Are they associated with the therapeutic procedure?\n3. Are units provided?\n4. Extract the quantitative measurements or values associated with the therapeutic procedure.",
+
+    "Subject": "1. Scan for any mention of the person undergoing the procedure.\n2. Are they identified by name, pronoun, or general reference?\n3. Is the subject clearly linked to the therapeutic procedure?\n4. Extract who is the subject or patient involved in the therapeutic procedure."
+  },
+
+  "Outcome": {
+    "Age": "1. Look for any age reference of the subject.\n2. Is the age linked to the time of the outcome?\n3. Is it stated in specific units?\n4. Extract the age of the subject in the outcome.",
+
+    "Detailed_description": "1. Scan for any detailed characterization of the outcome.\n2. Are there descriptive modifiers or qualifiers?\n3. Do they add specificity to the outcome?\n4. Extract the specific details or characteristics of the outcome.",
+
+    "Nonbiological_location": "1. Look for any non-anatomical location or setting.\n2. Is it where the outcome occurred?\n3. Is it a facility or geographic reference?\n4. Extract where the outcome occurred.",
+
+    "Subject": "1. Scan for any mention of the person involved.\n2. Are they identified by name, pronoun, or general reference?\n3. Is the subject clearly linked to the outcome?\n4. Extract who is the subject or patient involved in the outcome."
+  },
+
+  "Lab_value": {
+    "Biological_structure": "1. Scan for any body part or anatomical structure related to the lab value.\n2. Is the structure the source or target of the test?\n3. Is it directly linked to the lab value?\n4. Extract the biological structure or anatomical part involved in the lab value.",
+
+    "Color": "1. Look for any color descriptor associated with the lab value.\n2. Is the color linked to a specimen or result?\n3. Is it explicitly described?\n4. Extract the color associated with the lab value.",
+
+    "Detailed_description": "1. Scan for any detailed characterization of the lab value.\n2. Are there descriptive modifiers or qualifiers?\n3. Do they add specificity to the lab value?\n4. Extract the specific details or characteristics of the lab value.",
+
+    "Severity": "1. Look for any severity or intensity descriptors.\n2. Is the severity linked to the lab value finding?\n3. Is it explicitly graded or described?\n4. Extract the severity or intensity of the lab value."
+  },
+
+  "Other_event": {
+    "Biological_structure": "1. Scan for any body part or anatomical structure involved.\n2. Is the structure explicitly named?\n3. Is it directly related to the other event?\n4. Extract the biological structure or anatomical part involved in the other event.",
+
+    "Detailed_description": "1. Look for any detailed characterization of the other event.\n2. Are there descriptive modifiers or qualifiers?\n3. Do they add specificity to the event?\n4. Extract the specific details or characteristics of the other event.",
+
+    "Nonbiological_location": "1. Scan for any non-anatomical location or setting.\n2. Is it where the other event occurred?\n3. Is it a facility or geographic reference?\n4. Extract where the other event occurred.",
+
+    "Quantitative_concept": "1. Look for any quantitative measurements or values.\n2. Are they associated with the other event?\n3. Are units provided?\n4. Extract the quantitative measurements or values associated with the other event.",
+
+    "Severity": "1. Scan for any severity or intensity descriptors.\n2. Is the severity linked to the other event?\n3. Is it explicitly graded or described?\n4. Extract the severity or intensity of the other event."
+  }
+}

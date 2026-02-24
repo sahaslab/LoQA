@@ -1,0 +1,37 @@
+{
+    "Vitals-and-Hematology": "1. Scan the document for any mention of vital signs or blood-related test results.\n2. Are there any numerical values related to blood counts, hemoglobin, hematocrit, or other hematological markers?\n3. Are vital signs such as temperature, heart rate, blood pressure, or respiratory rate mentioned?\n4. Extract all information about the patient's vital signs or hematology results.",
+  
+    "Eyes-Ears-Nose-Throat": "1. Look for any findings or abnormalities related to the eyes, ears, nose, or throat.\n2. Are there mentions of visual changes, hearing issues, nasal findings, or throat abnormalities?\n3. Are these findings from a physical exam or patient-reported symptoms?\n4. Extract all abnormalities or findings related to the patient's eyes, ears, nose, or throat.",
+  
+    "Neurology": "1. Scan for any neurological signs, symptoms, or examination findings.\n2. Are there mentions of motor function, reflexes, sensation, mental status, or cognitive changes?\n3. Are these findings acute, chronic, or progressive?\n4. Extract all neurological signs, symptoms, or findings mentioned.",
+  
+    "Cardiovascular-System": "1. Look for any findings or observations about the cardiovascular system.\n2. Are there mentions of heart rate abnormalities, murmurs, blood pressure changes, or circulation issues?\n3. Are these from clinical examination or diagnostic testing?\n4. Extract all findings or observations about the patient's cardiovascular system.",
+  
+    "Respiratory-System": "1. Scan for any respiratory signs, symptoms, or findings.\n2. Are there mentions of breathing difficulty, cough, abnormal chest sounds, or oxygen level changes?\n3. Are these findings acute or chronic?\n4. Extract all respiratory signs, symptoms, or findings reported.",
+  
+    "Gastrointestinal-System": "1. Look for any gastrointestinal symptoms or findings.\n2. Are there mentions of nausea, vomiting, abdominal pain, stool changes, or liver-related findings?\n3. Are these findings from clinical examination, patient history, or test results?\n4. Extract all gastrointestinal symptoms or findings described.",
+  
+    "Genitourinary-System": "1. Scan for any findings related to the genitourinary system.\n2. Are there mentions of urine output changes, infections, or reproductive system issues?\n3. Are these findings from clinical examination or laboratory results?\n4. Extract all findings mentioned regarding the genitourinary system.",
+  
+    "Musculoskeletal-System": "1. Look for any musculoskeletal symptoms or findings.\n2. Are there mentions of muscle tone abnormalities, joint issues, weakness, or pain?\n3. Are these findings from physical examination or imaging?\n4. Extract all musculoskeletal symptoms or findings mentioned.",
+  
+    "Dermatology": "1. Scan for any skin-related findings or abnormalities.\n2. Are there mentions of rashes, pigmentation changes, lesions, or other cutaneous findings?\n3. Are these findings localized or widespread?\n4. Extract all skin-related findings or abnormalities reported.",
+  
+    "Lymphatic-System": "1. Look for any lymphatic system findings.\n2. Are there mentions of swollen glands, lymph node enlargement, or lymphatic abnormalities?\n3. Are these findings localized or generalized?\n4. Extract all lymphatic system findings mentioned.",
+  
+    "Endocrinology": "1. Scan for any endocrine or metabolic abnormalities.\n2. Are there mentions of hormone level changes, thyroid abnormalities, adrenal findings, or pancreatic issues?\n3. Are these findings from laboratory results or clinical presentation?\n4. Extract all endocrine or metabolic abnormalities described.",
+  
+    "Pregnancy": "1. Look for any information indicating pregnancy status, history, or complications.\n2. Are there mentions of current pregnancy, past pregnancies, or pregnancy-related conditions?\n3. Is the information relevant to the patient or a family member?\n4. Extract any information indicating pregnancy status, history, or related complications.",
+  
+    "Laboratory-and-Imaging": "1. Scan for any laboratory test results or imaging findings.\n2. Are there mentions of specific test names, numerical values, or imaging modalities?\n3. Are the results normal, abnormal, or pending?\n4. Extract all laboratory test results or imaging findings reported.",
+  
+    "Patient-History": "1. Look for any relevant medical, family, or social history.\n2. Are there mentions of past illnesses, surgeries, family conditions, or social factors?\n3. Is the history directly relevant to the current presentation?\n4. Extract all relevant medical, family, or social history provided about the patient.",
+  
+    "Age-at-Presentation": "1. Look for any mention of the patient's age at the time of presentation or diagnosis.\n2. Is the age stated in specific units or as a relative reference?\n3. Is it clearly linked to the time of clinical presentation?\n4. Extract the patient's age at the time of presentation or diagnosis.",
+  
+    "Age-of-Onset": "1. Scan for any mention of when symptoms or the condition first appeared.\n2. Is the age of onset stated directly or inferred from the timeline?\n3. Is it distinguished from the age at presentation?\n4. Extract the age at which the symptoms or condition first appeared.",
+  
+    "Confirmed-Diagnosis-IEM": "1. Look for any confirmed diagnosis related to an inborn error of metabolism.\n2. Is the diagnosis explicitly named or described?\n3. Is it confirmed through clinical, biochemical, or genetic testing?\n4. Extract the confirmed diagnosis related to the inborn error of metabolism.",
+  
+    "IEM-Treatment": "1. Scan for any treatments, medications, or management strategies used for the inborn error of metabolism.\n2. Are there mentions of dietary interventions, supplements, medications, or other therapies?\n3. Are these treatments ongoing, completed, or planned?\n4. Extract all treatments, medications, or management strategies used for the inborn error of metabolism."
+  }
