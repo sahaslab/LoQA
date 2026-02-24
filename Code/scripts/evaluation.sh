@@ -111,10 +111,10 @@ run_scoring() {
 # Run evaluation for each dataset and prediction key
 
 # #for LoQA models
-QG_MODEL_NAMES=('qwen3-4b')
-PD_MODEL_NAMES=('qwen3-4b')
-DATASETS=("CaseReportBench") #"CaseReportBench" "PHEE" "DiscourseEE" "MACCROBAT"
-QUESTION_TYPES=("schema" "cot-schema") #"schema" "cot-schema" "loqa" "optimized_loqa"
+QG_MODEL_NAMES=('gpt-oss-120b')
+PD_MODEL_NAMES=('gpt-oss-120b')
+DATASETS=("PHEE" "DiscourseEE" "MACCROBAT") #"CaseReportBench" "PHEE" "DiscourseEE" "MACCROBAT"
+QUESTION_TYPES=("schema" "cot-schema" "loqa" "optimized_loqa") #"schema" "cot-schema" "loqa" "optimized_loqa"
 
 for QG_MODEL_NAME in "${QG_MODEL_NAMES[@]}"; do
     for PD_MODEL_NAME in "${PD_MODEL_NAMES[@]}"; do
