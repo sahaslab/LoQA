@@ -16,7 +16,6 @@ _sbert_model = None
 _embeddings_cache = {}
 _embeddings_lock = threading.Lock()
 
-
 #----------------------------------------------------------
 # ---------------- Exact Matching ----------------
 #----------------------------------------------------------
@@ -205,30 +204,35 @@ def _relaxed_match_at_threshold(
         verbose: Whether to print progress
     
     Returns:
-        - matched_pairs: List of (prediction, ground_truth) tuples above threshold
-        - remaining_predictions: Unmatched predictions
-        - remaining_ground_truth: Unmatched ground truth
+        - matched_pairs: List of all (prediction, ground_truth) tuples above threshold
+        - remaining_predictions: Predictions that did not match any ground truth
+        - remaining_ground_truth: Ground truth items that did not match any prediction
     """
-    # Use sets for efficient lookups
-    remaining_pred_set = set(predictions)
-    remaining_gt_set = set(ground_truth)
-    matched_pairs = []
-    
-    # Process scores in descending order (greedy matching)
+    # Allow many-to-one and one-to-many matches:
+    # a prediction is considered "correct" if it matches at least one GT above threshold,
+    # and a GT is considered "covered" if it matches at least one prediction.
+    predictions_list = list(predictions)
+    ground_truth_list = list(ground_truth)
+    pred_has_match = {p: False for p in predictions_list}
+    gt_has_match = {g: False for g in ground_truth_list}
+    matched_pairs: List[Tuple[str, str]] = []
+
+    # pairwise_scores is sorted in descending order; we keep all above threshold
     for (pred, gt), score in pairwise_scores:
         if score < threshold:
-            break  # Scores are sorted descending
-        
-        # Only match if both are still available
-        if pred in remaining_pred_set and gt in remaining_gt_set:
-            matched_pairs.append((pred, gt))
-            remaining_pred_set.remove(pred)
-            remaining_gt_set.remove(gt)
-            
-            if verbose:
-                print(f"{pred} || {gt} || {score:.4f}")
-    
-    return matched_pairs, list(remaining_pred_set), list(remaining_gt_set)
+            break
+        matched_pairs.append((pred, gt))
+        if pred in pred_has_match:
+            pred_has_match[pred] = True
+        if gt in gt_has_match:
+            gt_has_match[gt] = True
+        if verbose:
+            print(f"{pred} || {gt} || {score:.4f}")
+
+    remaining_predictions = [p for p in predictions_list if not pred_has_match[p]]
+    remaining_ground_truth = [g for g in ground_truth_list if not gt_has_match[g]]
+
+    return matched_pairs, remaining_predictions, remaining_ground_truth
 
 def relaxed_match_thresholding(
     predictions: List[Dict[str, Any]], 
@@ -303,7 +307,10 @@ Answer "yes" or "no" only."""
 async def _async_judge_one_pair(chain, x: str, y: str, role: str, context: str) -> str:
     """Judge one pair asynchronously, retrying until success."""
     inp = {"x": x, "y": y, "role": role, "context": context}
-    while True:
+    MAX_RETRIES = 10
+    RETRY_DELAY = 10  # seconds
+
+    for attempt in range(MAX_RETRIES):
         try:
             try:
                 output = await chain.ainvoke(inp)
@@ -311,8 +318,12 @@ async def _async_judge_one_pair(chain, x: str, y: str, role: str, context: str) 
                 output = await asyncio.to_thread(chain.invoke, inp)
             return "yes" if "yes" in output.lower() else "no"
         except Exception as e:
-            print(e)
-            await asyncio.sleep(3)
+            print(f"[Attempt {attempt + 1}/{MAX_RETRIES}] {e}")
+            if attempt < MAX_RETRIES - 1:
+                await asyncio.sleep(RETRY_DELAY)
+            else:
+                print(f"All {MAX_RETRIES} retries exhausted. Last error: {e}. Returning 'no'.")
+                return "no"
 
 async def _doing_complex_matching_async(
     prediction_dictionary: List[Dict[str, Any]],
@@ -384,8 +395,11 @@ async def _async_complex_match_two_lists(
     verbose: bool = True,
 ) -> Tuple[List[Tuple[str, str]], List[str], List[str]]:
     """
-    Run LLM-as-judge on all pred×gt pairs, then greedy one-to-one match on 'yes' results.
-    
+    Run LLM-as-judge on all pred×gt pairs.
+
+    A prediction is considered matched if it has at least one "yes" with any GT,
+    and a GT is considered matched if it has at least one "yes" with any prediction.
+
     Returns:
         matched_pairs, remaining_predictions, remaining_ground_truth
     """
@@ -418,18 +432,25 @@ async def _async_complex_match_two_lists(
 
     results = await asyncio.gather(*[_run(p, g) for p, g in tasks])
 
-    # Greedy one-to-one matching on "yes" results
-    remaining_pred_set = set(predictions)
-    remaining_gt_set = set(ground_truth)
-    matched_pairs = []
+    # Many-to-one and one-to-many matching on "yes" results
+    predictions_list = list(predictions)
+    ground_truth_list = list(ground_truth)
+    pred_has_yes = {p: False for p in predictions_list}
+    gt_has_yes = {g: False for g in ground_truth_list}
+    matched_pairs: List[Tuple[str, str]] = []
 
     for pred, gt, result in results:
-        if result == "yes" and pred in remaining_pred_set and gt in remaining_gt_set:
+        if result == "yes":
             matched_pairs.append((pred, gt))
-            remaining_pred_set.discard(pred)
-            remaining_gt_set.discard(gt)
+            if pred in pred_has_yes:
+                pred_has_yes[pred] = True
+            if gt in gt_has_yes:
+                gt_has_yes[gt] = True
 
-    return matched_pairs, list(remaining_pred_set), list(remaining_gt_set)
+    remaining_predictions = [p for p in predictions_list if not pred_has_yes[p]]
+    remaining_ground_truth = [g for g in ground_truth_list if not gt_has_yes[g]]
+
+    return matched_pairs, remaining_predictions, remaining_ground_truth
 
 def complex_match_two_lists_for_qo(
     predictions: List[str],
@@ -478,20 +499,30 @@ def getting_complex_match_pairs(
     new_pred_dictionary = []
     for dt in predictions:
         new_dt = copy.deepcopy(dt)
-        initial_labels = set(dt.get(f"after-relaxed-match-{threshold}-ground-truth", []))
-        initial_pred = set(dt.get(f"after-relaxed-match-{threshold}-predictions", []))
+        initial_labels_list = list(dt.get(f"after-relaxed-match-{threshold}-ground-truth", []))
+        initial_pred_list = list(dt.get(f"after-relaxed-match-{threshold}-predictions", []))
         lst_of_pairs = dt.get(f"complex-match-all-pairs", [])
-        cm_pair = []
+        cm_pair: List[Tuple[str, str]] = []
+        pred_has_yes = {p: False for p in initial_pred_list}
+        gt_has_yes = {g: False for g in initial_labels_list}
+
         for value in lst_of_pairs:
             pred, gt, matching_output = value[0][0], value[0][1], value[1]
-            if matching_output == "yes" and pred in initial_pred and gt in initial_labels:
+            if matching_output == "yes":
                 if verbose:
                     print(f"{pred} || {gt} || {matching_output}")
                 cm_pair.append((pred, gt))
-                initial_pred.discard(pred)
-                initial_labels.discard(gt)
-        new_dt["after-complex-match-ground-truth"] = list(initial_labels)
-        new_dt["after-complex-match-predictions"] = list(initial_pred)
+                if pred in pred_has_yes:
+                    pred_has_yes[pred] = True
+                if gt in gt_has_yes:
+                    gt_has_yes[gt] = True
+
+        new_dt["after-complex-match-ground-truth"] = [
+            g for g in initial_labels_list if not gt_has_yes[g]
+        ]
+        new_dt["after-complex-match-predictions"] = [
+            p for p in initial_pred_list if not pred_has_yes[p]
+        ]
         new_dt["complex-match-pairs"] = cm_pair
         new_pred_dictionary.append(new_dt)
     return new_pred_dictionary
@@ -531,28 +562,33 @@ def getting_role_wise_scores(
             if dt["role"] != role:
                 continue
 
-            gt_cnt += len(dt["initial-ground-truth"])
-            pd_cnt += len(dt["initial-predictions"])
+            # Use set-based counts per example to avoid double-counting duplicates
+            init_gt_set = set(dt["initial-ground-truth"])
+            init_pd_set = set(dt["initial-predictions"])
+            after_em_gt_set = set(dt["after-exact-match-ground-truth"])
+            after_em_pd_set = set(dt["after-exact-match-predictions"])
+            after_rm_gt_set = set(dt[f"after-relaxed-match-{threshold}-ground-truth"])
+            after_rm_pd_set = set(dt[f"after-relaxed-match-{threshold}-predictions"])
 
-            na_e += len(dt["initial-ground-truth"]) - len(dt["after-exact-match-ground-truth"])
-            np_e += len(dt["initial-predictions"]) - len(dt["after-exact-match-predictions"])
+            gt_cnt += len(init_gt_set)
+            pd_cnt += len(init_pd_set)
 
-            na_r += len(dt["after-exact-match-ground-truth"]) - len(
-                dt[f"after-relaxed-match-{threshold}-ground-truth"]
-            )
-            np_r += len(dt["after-exact-match-predictions"]) - len(
-                dt[f"after-relaxed-match-{threshold}-predictions"]
-            )
+            # Exact-match contributions (unique items)
+            na_e += len(init_gt_set) - len(after_em_gt_set)
+            np_e += len(init_pd_set) - len(after_em_pd_set)
+
+            # Relaxed-match contributions (unique items)
+            na_r += len(after_em_gt_set) - len(after_rm_gt_set)
+            np_r += len(after_em_pd_set) - len(after_rm_pd_set)
 
             if use_cm and "after-complex-match-ground-truth" in dt:
-                na_c += len(dt[f"after-relaxed-match-{threshold}-ground-truth"]) - len(
-                    dt["after-complex-match-ground-truth"]
-                )
-                np_c += len(dt[f"after-relaxed-match-{threshold}-predictions"]) - len(
-                    dt["after-complex-match-predictions"]
-                )
+                after_cm_gt_set = set(dt["after-complex-match-ground-truth"])
+                after_cm_pd_set = set(dt["after-complex-match-predictions"])
+                na_c += len(after_rm_gt_set) - len(after_cm_gt_set)
+                np_c += len(after_rm_pd_set) - len(after_cm_pd_set)
                 cm_cnt += len(dt.get("complex-match-pairs", []))
 
+            # Pair counts remain pair-based, not set-based
             em_cnt += len(dt["exact-match-pairs"])
             rm_cnt += len(dt[f"relaxed-match-{threshold}-pairs"])
 
@@ -620,24 +656,29 @@ def overall_score_on_whole_data(
     use_cm = do_complex_match and any("after-complex-match-ground-truth" in dt for dt in predictions)
 
     for dt in predictions:
-        gt_cnt += len(dt["initial-ground-truth"])
-        pd_cnt += len(dt["initial-predictions"])
-        na_e += len(dt["initial-ground-truth"]) - len(dt["after-exact-match-ground-truth"])
-        np_e += len(dt["initial-predictions"]) - len(dt["after-exact-match-predictions"])
-        na_r += len(dt["after-exact-match-ground-truth"]) - len(
-            dt[f"after-relaxed-match-{threshold}-ground-truth"]
-        )
-        np_r += len(dt["after-exact-match-predictions"]) - len(
-            dt[f"after-relaxed-match-{threshold}-predictions"]
-        )
+        # Set-based counts per example
+        init_gt_set = set(dt["initial-ground-truth"])
+        init_pd_set = set(dt["initial-predictions"])
+        after_em_gt_set = set(dt["after-exact-match-ground-truth"])
+        after_em_pd_set = set(dt["after-exact-match-predictions"])
+        after_rm_gt_set = set(dt[f"after-relaxed-match-{threshold}-ground-truth"])
+        after_rm_pd_set = set(dt[f"after-relaxed-match-{threshold}-predictions"])
+
+        gt_cnt += len(init_gt_set)
+        pd_cnt += len(init_pd_set)
+
+        na_e += len(init_gt_set) - len(after_em_gt_set)
+        np_e += len(init_pd_set) - len(after_em_pd_set)
+        na_r += len(after_em_gt_set) - len(after_rm_gt_set)
+        np_r += len(after_em_pd_set) - len(after_rm_pd_set)
+
         if use_cm and "after-complex-match-ground-truth" in dt:
-            na_c += len(dt[f"after-relaxed-match-{threshold}-ground-truth"]) - len(
-                dt["after-complex-match-ground-truth"]
-            )
-            np_c += len(dt[f"after-relaxed-match-{threshold}-predictions"]) - len(
-                dt["after-complex-match-predictions"]
-            )
+            after_cm_gt_set = set(dt["after-complex-match-ground-truth"])
+            after_cm_pd_set = set(dt["after-complex-match-predictions"])
+            na_c += len(after_rm_gt_set) - len(after_cm_gt_set)
+            np_c += len(after_rm_pd_set) - len(after_cm_pd_set)
             cm_cnt += len(dt.get("complex-match-pairs", []))
+
         em_cnt += len(dt["exact-match-pairs"])
         rm_cnt += len(dt[f"relaxed-match-{threshold}-pairs"])
 

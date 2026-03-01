@@ -21,6 +21,7 @@ from Code.src.utils.prompts import (
     question_generation_prompt_template,
     argument_extraction_prompt_template,
     loqa_refinement_prompt_template,
+    opt_leakage_check_prompt_template,  
 )
 from Code.src.utils.qg_and_pd_utils import (
     read_data_split,
@@ -77,11 +78,10 @@ def main(args):
         model_access_string='openai.gpt-oss-120b'
     )
 
-    # leakage_check_model = get_model(
-    #     model_origin='dartmouth',
-    #     model_access_string='openai.gpt-oss-120b'
-    # )
-
+    leakage_check_model = get_model(
+        model_origin='dartmouth',
+        model_access_string='openai.gpt-oss-120b'
+    )
 
     # ---------------------------------------------------------------------
     # Create prompt chains
@@ -99,6 +99,11 @@ def main(args):
         prompt_file_path=os.path.join(args.prompt_dir, "qo", f"{args.qo_prompt_version}.txt"),
     )
 
+    leakage_check_prompt_chain, lc_prompt_template = opt_leakage_check_prompt_template(
+        leakage_check_model,
+        prompt_file_path=os.path.join(args.prompt_dir, "lc", "zs-v0.txt"),
+    )
+
     # ---------------------------------------------------------------------
     # Run refinement loop
     # ---------------------------------------------------------------------
@@ -112,6 +117,8 @@ def main(args):
         refinement_prompt_template=loqa_opt_prompt_template,
         get_response=get_response,
         judge_model=judge_model_for_complex_matching,
+        leakage_check_prompt_chain=leakage_check_prompt_chain,
+        leakage_check_prompt_template=lc_prompt_template,
         num_iterations=args.num_iterations,
         target_score=args.target_score,
         maximum_patience=args.maximum_patience,
@@ -134,17 +141,16 @@ def main(args):
         print(f"Processed {num_processed} items. Data saved to: {file_path}")
 
     # Print results summary (only when verbose)
-    if verbose:
-        for idx, item in enumerate(results):
-            print(f"\n{'*'*50}")
-            print("Item:", idx)
-            print("Role:", item.get("role"))
-            print("Processed GT Arguments:", item.get("processed_gt_args"))
-            print("Optimized LOQA Questions:", item.get("optimized_loqa_questions"))
-            print("Optimized LOQA Args:", item.get("optimized_loqa_args"))
-            print("Best Iteration Number:", item.get("best_iteration_number"))
-            print("Best Score:", item.get("best_score"))
-            print("Total Iterations:", item.get("total_iterations"))
+    for idx, item in enumerate(results):
+        print(f"\n{'*'*50}")
+        print("Item:", idx, f"(serial={item.get('serial-number', idx)})")
+        print("Role:", item.get("role"))
+        print("Processed GT Arguments:", item.get("processed_gt_args"))
+        print("Optimized LOQA Args:", item.get("optimized_loqa_args"))
+        print("Optimized LOQA Questions:", item.get("optimized_loqa_questions"))
+        print("Best Iteration Number:", item.get("best_iteration_number"))
+        print("Best Score:", item.get("best_score"))
+        print("Total Iterations:", item.get("total_iterations"))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("Question optimization runner")

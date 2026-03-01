@@ -80,3 +80,11 @@ def loqa_refinement_prompt_template(model, prompt_file_path: str, **jinja_vars):
         template=template
     )
     return prompt_template | model | StrOutputParser(), prompt_template
+
+def opt_leakage_check_prompt_template(model, prompt_file_path: str, **jinja_vars):
+    template = _load_prompt(prompt_file_path, **jinja_vars)
+    prompt_template = PromptTemplate(
+        input_variables=['role', 'current_questions', 'gt_arguments'],
+        template=template
+    )
+    return prompt_template | model | StrOutputParser(), prompt_template

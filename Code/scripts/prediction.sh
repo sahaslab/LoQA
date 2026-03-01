@@ -79,8 +79,8 @@ run_prediction() {
 QG_MODEL_NAMES=("gpt-oss-120b")
 PD_MODEL_NAMES=("gpt-oss-120b")
 PD_MODEL_ACCESS_STRINGS=("openai.gpt-oss-120b")
-DATASETS=("PHEE" "DiscourseEE" "MACCROBAT") #"CaseReportBench" "PHEE" "DiscourseEE" "MACCROBAT"
-QUESTION_TYPES=("schema" "cot-schema" "loqa" "optimized_loqa") #"schema" "cot-schema" "loqa" "optimized_loqa"
+DATASETS=("DiscourseEE") #"CaseReportBench" "PHEE" "DiscourseEE" "MACCROBAT"
+QUESTION_TYPES=("optimized_loqa") #"schema" "cot-schema" "loqa" "optimized_loqa"
 
 for QG_MODEL_NAME in "${QG_MODEL_NAMES[@]}"; do
     for i in "${!PD_MODEL_NAMES[@]}"; do

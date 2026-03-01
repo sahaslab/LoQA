@@ -13,7 +13,7 @@ QG_MODEL_NAME="gpt-oss-120b"
 QG_MODEL_ORIGIN="dartmouth"  #"dartmouth" #"dartmouth" 
 QG_MODEL_ACCESS_STRING='openai.gpt-oss-120b' #"openai.gpt-4.1-mini-2025-04-14" #"openai.gpt-oss-120b" #"openai.gpt-4.1-mini-2025-04-14" #"openai.gpt-oss-120b"
 REASONING_EFFORT="high"
-NUM_SAMPLES=-1 #if set to -1, all valid samples will be processed
+NUM_SAMPLES=5 #if set to -1, all valid samples will be processed
 USE_ASYNC="1"  # set to empty string to disable async: USE_ASYNC="d"
 BATCH_SIZE=200
 QG_PROMPT_VERSION="zs-v0"
@@ -23,7 +23,7 @@ DATASET_ROOT="$REPO_ROOT/Dataset"
 QG_TEMPERATURE=0.0
 QG_GPU_UTIL=0.9
 CACHE_DIR="/dartfs-hpc/rc/home/j/f006f3j/lab/shared"
-OUTPUT_PATH="$REPO_ROOT/Outputs/qg/" #change directory name to raw for testing purposes
+OUTPUT_PATH="$REPO_ROOT/Outputs/raw/" #change directory name to raw for testing purposes
 PROMPT_DIR="$REPO_ROOT/Prompts"
 
 # Build arguments
@@ -62,8 +62,8 @@ run_question_generation() {
 }
 
 DATASETS=("CaseReportBench" "PHEE" "DiscourseEE" "MACCROBAT") #"CaseReportBench" "PHEE" "DiscourseEE"
-PRED_KEYS=("schema" "cot-schema") #"loqa" "schema"
-QG_MODEL_NAMES=("gpt-5-mini" "gpt-4.1-mini" "qwen3-4b" "qwen3-8b" "qwen3-32b")
+PRED_KEYS=("loqa") #"loqa" "schema"
+QG_MODEL_NAMES=("gpt-oss-120b")
 for QG_MODEL_NAME in "${QG_MODEL_NAMES[@]}"; do
     for DATASET in "${DATASETS[@]}"; do
         for PRED_KEY in "${PRED_KEYS[@]}"; do

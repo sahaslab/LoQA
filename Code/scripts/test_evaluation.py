@@ -2,6 +2,7 @@ import os
 import sys
 import argparse
 import copy
+from pprint import pprint
 
 # Ensure repository root is on sys.path so "Code" is importable
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -23,7 +24,7 @@ from Code.src.utils.evaluation_utils import (
 def main(args):
     # Load data
     dataset_name = args.dataset_name
-    pd_file_path = f'/dartfs-hpc/rc/home/j/f006f3j/lab/omar/LoQA/Outputs/qo/{dataset_name}/optimized_loqa-{dataset_name}-gold-test-gpt-oss-120b-v0.json'
+    pd_file_path = f'/dartfs-hpc/rc/home/j/f006f3j/lab/omar/LoQA/Outputs/qo/{dataset_name}/optimized_loqa-{dataset_name}-gold-test-gpt-oss-120b-zs-v0.json'
     pd_data = read_json_file(pd_file_path)
 
     FIELDS_TO_REMOVE = [
@@ -36,11 +37,16 @@ def main(args):
         "total_iterations",
     ]
 
-    eval_data= []
+    eval_data = []
     for pred in pd_data:
         item = copy.deepcopy(pred)
-        item['initial-ground-truth'] = pred['processed_gt_args']
-        item['initial-predictions'] = pred['optimized_loqa_args']
+
+        gt = pred.get("processed_gt_args") or []
+        pd = pred.get("optimized_loqa_args") or []
+
+        item["initial-ground-truth"] = gt if isinstance(gt, (list, tuple)) else []
+        item["initial-predictions"] = pd if isinstance(pd, (list, tuple)) else []
+
         eval_data.append(item)
 
     cleaned_preds = []
@@ -80,6 +86,7 @@ def main(args):
         results, args.rm_threshold, verbose=args.verbose
     )
     results = overall_score_on_whole_data(results, args.rm_threshold, do_complex_match=True)
+    pprint(results)
     save_json_file(results, f'/dartfs-hpc/rc/home/j/f006f3j/lab/omar/LoQA/Outputs/raw/{dataset_name}/test_evaluation_1.json')
     return results
 

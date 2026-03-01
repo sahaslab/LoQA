@@ -18,7 +18,7 @@ if REPO_ROOT not in sys.path:
 
 from Code.src.utils.io import save_json_file
 from Code.src.utils.model_source import get_model
-from Code.src.utils.prompts import question_generation_prompt_template, vllm_question_generation_prompt_template
+from Code.src.utils.prompts import question_generation_prompt_template, vllm_question_generation_prompt_template, opt_leakage_check_prompt_template
 from Code.src.utils.qg_and_pd_utils import (
     read_data_split,
     read_schema_questions,
@@ -26,6 +26,7 @@ from Code.src.utils.qg_and_pd_utils import (
     get_schema_question,
     get_response,
     process_qg_items_async,
+    leakage_check_zero_shot_loqa_questions,
 )
 
 def main(args):
@@ -133,6 +134,8 @@ def main(args):
 
     # Use actual number of processed items in filename
     num_processed = len(rows)
+    if question_type == "loqa":
+        rows = leakage_check_zero_shot_loqa_questions(rows)
     file_name = f"{question_type}-qg-{args.dataset_name}-{args.split_name}-{args.qg_model_name}-{args.qg_prompt_version}.json"
     file_path = os.path.join(args.output_path, args.dataset_name, file_name)
     save_json_file(rows, file_path)
