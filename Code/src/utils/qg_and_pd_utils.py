@@ -8,7 +8,11 @@ import copy
 import asyncio
 from typing import Any, Dict
 from tqdm import tqdm
+from typing import Dict, List, Any, Tuple, Callable, Optional
 from Code.src.utils.io import read_json_file
+from Code.src.utils.model_source import get_model
+from Code.src.utils.prompts import opt_leakage_check_prompt_template
+from Code.src.utils.preprocessing import list_normalization
 
                             # ------------------------------
                             # Common funnctions used in both question generation and argument extraction
@@ -50,13 +54,13 @@ def read_data_split(dataset_root: str, dataset_name: str, split_name: str):
     dataset_dir = os.path.join(dataset_root, dataset_name)
     data_split_path = os.path.join(dataset_dir, f"{dataset_name}-{split_name}.json")
     _data = read_json_file(data_split_path)
-    if isinstance(_data, dict):
-        if split_name in _data:
-            _data = _data[split_name]
-        elif split_name == "gold-test" and "test" in _data:
-            _data = _data["test"]
-        else:
-            raise ValueError(f"Split key '{split_name}' not found in {data_split_path}. Keys: {list(_data.keys())}")
+    # if isinstance(_data, dict):
+    #     if split_name in _data:
+    #         _data = _data[split_name]
+    #     elif split_name == "gold-test" and "test" in _data:
+    #         _data = _data["test"]
+    #     else:
+    #         raise ValueError(f"Split key '{split_name}' not found in {data_split_path}. Keys: {list(_data.keys())}")
     return _data
 
 def read_schema_questions(dataset_root: str, dataset_name: str, question_type: str):
@@ -145,14 +149,21 @@ def get_response(prompt_chain, input_dict, *, prompt_template=None, print_prompt
             print("=" * 60 + "\n")
         except Exception as e:
             print(f"[Warning] Could not format/print prompt: {e}")
-    while True:  # to get rid of model overload errors
+    MAX_RETRIES = 10
+    RETRY_DELAY = 10  # seconds
+
+    for attempt in range(MAX_RETRIES):
         try:
             response = prompt_chain.invoke(input_dict)
-            # print(response)
             return normalize_response(response)
         except Exception as e:
-            print(e)
-            time.sleep(5)
+            print(f"[Attempt {attempt + 1}/{MAX_RETRIES}] {e}")
+            if attempt < MAX_RETRIES - 1:
+                time.sleep(RETRY_DELAY)
+            else:
+                print(f"All {MAX_RETRIES} retries exhausted. Last error: {e}")
+                print("Returning empty string as response")
+                return ""
 
 async def get_response_async(prompt_chain, input_dict, *, prompt_template=None, print_prompt=False):
     """Async version of get_response using ainvoke for concurrent processing.
@@ -165,13 +176,21 @@ async def get_response_async(prompt_chain, input_dict, *, prompt_template=None, 
             print("=" * 60 + "\n")
         except Exception as e:
             print(f"[Warning] Could not format/print prompt: {e}")
-    while True:  # to get rid of model overload errors
+    MAX_RETRIES = 10
+    RETRY_DELAY = 10  # seconds
+
+    for attempt in range(MAX_RETRIES):
         try:
             response = await prompt_chain.ainvoke(input_dict)
             return normalize_response(response)
         except Exception as e:
-            print(f"Error in async request: {e}")
-            await asyncio.sleep(5)
+            print(f"[Attempt {attempt + 1}/{MAX_RETRIES}] {e}")
+            if attempt < MAX_RETRIES - 1:
+                await asyncio.sleep(RETRY_DELAY)
+            else:
+                print(f"All {MAX_RETRIES} retries exhausted. Last error: {e}")
+                print("Returning empty string as response")
+                return ""
 
                             # ------------------------------
                             # Question generation async processing
@@ -237,3 +256,62 @@ async def process_pd_items_async(valid_items, question_type, arg_pd_chain, datas
             pbar.update(len(batch_results))
 
    
+   # ------------------------------
+   # Leakage check for zero-shot loqa questions
+   # ------------------------------
+
+def format_arguments_for_prompt(arguments: List[str]) -> str:
+    """Format a list of arguments as bulleted markdown for LLM input."""
+    if not arguments:
+        return "None"
+    return "\n".join([f"- {arg}" for arg in arguments])
+
+def get_leakage_checked_questions(leakage_check_output: str) -> Tuple[Optional[List[str]], Optional[str]]:
+    """Parse leakage check output and return (checked_questions, is_leaked)."""
+    try:
+        leakage_check_parsed = json.loads(leakage_check_output)
+        return (
+            leakage_check_parsed.get("final_questions", None),
+            leakage_check_parsed.get("is_leaked", None),
+        )
+    except (json.JSONDecodeError, AttributeError):
+        return None, None
+
+def leakage_check_zero_shot_loqa_questions(all_samples):
+    """Leakage check for zero-shot loqa questions."""
+    
+    leakage_check_model = get_model(
+        model_origin='dartmouth',
+        model_access_string='openai.gpt-oss-120b'
+    )
+    leakage_check_prompt_chain, leakage_check_prompt_template = opt_leakage_check_prompt_template(
+        leakage_check_model,
+        prompt_file_path=os.path.join('/dartfs-hpc/rc/home/j/f006f3j/lab/omar/LoQA/Prompts', "lc", "zs-v0.txt"),
+    )
+    for item in all_samples:
+        role = item.get("role")
+        current_questions = item.get("loqa_questions")
+        gt_args = item.get("raw-initial-ground-truth")
+        processed_gt_args = list_normalization(gt_args or [])
+        leakage_check_input = {
+            "role": role,
+            "current_questions": format_arguments_for_prompt(current_questions),
+            "gt_arguments": format_arguments_for_prompt(processed_gt_args),
+        }
+        leakage_check_output = get_response(
+            leakage_check_prompt_chain,
+            leakage_check_input,
+            prompt_template=leakage_check_prompt_template,
+            print_prompt=False,
+        )
+        final_questions, is_leaked = get_leakage_checked_questions(leakage_check_output)
+        lc_info = {
+            "is_leaked": is_leaked,
+            "previous_questions": current_questions,
+            "final_questions": final_questions,
+        }
+        item["lc_info"] = lc_info
+        # Only overwrite questions when we got a valid result; otherwise keep current (e.g. after retry exhaustion or malformed JSON)
+        if final_questions is not None:
+            item["loqa_questions"] = final_questions
+    return all_samples

@@ -11,7 +11,7 @@ source "$REPO_ROOT/.env"
 # Common Variables - Modify these as needed
 DATASET_NAME="CaseReportBench"  # "DiscourseEE" "PHEE" "CaseReportBench"
 SPLIT_NAME="gold-test"               # "train" "test" "dev"
-NUM_SAMPLES=-1                # -1 = all valid samples
+NUM_SAMPLES=-1              # -1 = all valid samples
 
 # Question optimization model
 QO_MODEL_NAME="gpt-oss-120b"
@@ -20,7 +20,7 @@ QO_MODEL_ACCESS_STRING="openai.gpt-oss-120b"
 QO_TEMPERATURE=0.0
 QO_GPU_UTIL=0.9
 QO_REASONING_EFFORT="none"
-QO_PROMPT_VERSION="v0"
+QO_PROMPT_VERSION="zs-v0"
 INITIAL_QO_PROMPT_VERSION="zs-v0"
 
 # Prediction model (for argument extraction)
@@ -31,7 +31,7 @@ PD_TEMPERATURE=0.0
 PD_GPU_UTIL=0.9
 PD_REASONING_EFFORT="none"
 PD_PROMPT_VERSION="zs-v0"
-VERBOSE="1" # set to "1" to print progress and results to stdout
+VERBOSE="" # set to "1" to print progress and results to stdout
 PRINT_PROMPT="" # set to "1" to print formatted prompt before each get_response (initial QG, arg extraction, refinement)
 
 # Refinement loop
@@ -104,7 +104,7 @@ run_question_optimization() {
 }
 
 # Run for configured datasets
-DATASETS=("PHEE" "DiscourseEE" "MACCROBAT")  # "CaseReportBench" "PHEE" "DiscourseEE" "MACCROBAT"
+DATASETS=("DiscourseEE")  # "CaseReportBench" "PHEE" "DiscourseEE" "MACCROBAT"
 
 for DATASET in "${DATASETS[@]}"; do    
     LOG_FILE="$LOG_DIR/qo-${QO_MODEL_NAME}-${DATASET}-${SPLIT_NAME}-${PD_MODEL_NAME}.out"

@@ -10,7 +10,7 @@ source "$REPO_ROOT/.env"
 cd "$REPO_ROOT"
 
 # Parameters (match test_evaluation.py defaults)
-DATASET_NAME="CaseReportBench"
+DATASET_NAME="DiscourseEE"
 RM_THRESHOLD=0.85
 VERBOSE=true
 NUM_SAMPLES=-1

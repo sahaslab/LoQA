@@ -47,7 +47,7 @@ def prepare_data_for_evaluation(data, key):
         
         # Extract, process and normalize predictions
         processed_pred = get_process_predictions(raw_pred, role)
-        normalized_pred = list_normalization(processed_pred) if processed_pred else []
+        normalized_pred = list_normalization(processed_pred)
         
         # Store normalized versions
         new_item['initial-ground-truth'] = normalized_gt
