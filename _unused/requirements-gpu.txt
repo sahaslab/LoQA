@@ -1,0 +1,65 @@
+# ------------------------
+# Core ML / PyTorch
+# ------------------------
+torch==2.8.0
+triton>=2.1.0
+
+# ------------------------
+# vLLM (Fast inference + OpenAI-compatible API)
+# ------------------------
+vllm==0.10.2
+
+# ------------------------
+# Hugging Face ecosystem
+# ------------------------
+transformers>=4.56,<5
+datasets>=4.0
+huggingface_hub>=0.24
+accelerate>=1.0
+trl==0.25.0
+peft>=0.10
+sentencepiece>=0.2.0
+evaluate>=0.4.0
+sentence-transformers
+
+# ------------------------
+# LangChain ecosystem
+# ------------------------
+langchain
+langchain-core
+langchain-community
+langchain-openai
+langchain-dartmouth
+langchain-google-genai
+
+# ------------------------
+# OpenAI client (for vLLM OpenAI-compatible API)
+# ------------------------
+openai>=1.40.0
+
+# ------------------------
+# Utilities
+# ------------------------
+tinker
+tqdm>=4.66
+pyyaml>=6.0
+python-dotenv>=1.0
+rich>=13.7
+loguru>=0.7
+jinja2>=3.1
+tyro>=0.8.5
+ipython
+spacy
+ranx
+liger-kernel
+
+# ------------------------
+# Visualization
+# ------------------------
+matplotlib
+
+# ------------------------
+# Experiment tracking (optional)
+# ------------------------
+wandb
+weave
