@@ -24,7 +24,8 @@ from Code.src.utils.evaluation_utils import (
 def main(args):
     # Load data
     dataset_name = args.dataset_name
-    pd_file_path = f'/dartfs-hpc/rc/home/j/f006f3j/lab/omar/LoQA/Outputs/qo/{dataset_name}/optimized_loqa-{dataset_name}-gold-test-gpt-oss-120b-zs-v0.json'
+    split_name = "test"
+    pd_file_path = f'/dartfs-hpc/rc/home/j/f006f3j/lab/omar/LoQA/Outputs/qo/{dataset_name}/optimized_loqa-{dataset_name}-{split_name}-gpt-oss-120b-zs-v0.json'
     pd_data = read_json_file(pd_file_path)
 
     FIELDS_TO_REMOVE = [

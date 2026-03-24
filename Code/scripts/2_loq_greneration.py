@@ -18,7 +18,11 @@ if REPO_ROOT not in sys.path:
 
 from Code.src.utils.io import save_json_file
 from Code.src.utils.model_source import get_model
-from Code.src.utils.prompts import question_generation_prompt_template, vllm_question_generation_prompt_template, opt_leakage_check_prompt_template
+from Code.src.utils.prompts import (
+    question_generation_prompt_template,
+    dynamic_question_generation_prompt_template,
+    vllm_question_generation_prompt_template,
+) 
 from Code.src.utils.qg_and_pd_utils import (
     read_data_split,
     read_schema_questions,
@@ -59,9 +63,9 @@ def main(args):
                 item[f"{question_type}_questions"] = schema_question
                 rows.append(copy.deepcopy(item))
                 pbar.update(1)   
-    elif question_type in ["loqa"]:
+    elif question_type in ["loqa", "dynamicQ"]:
         # Use async processing for OpenAI, Dartmouth, and vllm-serve models
-        if args.use_async and args.qg_model_origin in ["openai", "dartmouth", "vllm-serve"]:
+        if args.use_async and args.qg_model_origin in ["openai", "dartmouth", "vllm-serve", "google"]:
             qg_model = get_model(
                 model_origin=args.qg_model_origin,
                 model_access_string=args.qg_model_access_string,
@@ -71,9 +75,14 @@ def main(args):
                 reasoning_effort=args.reasoning_effort,
                 hf_token=args.hf_token,
             )
-            question_chain, _ = question_generation_prompt_template(qg_model, qg_prompt_path)
+            if question_type =="loqa":
+                question_chain, _ = question_generation_prompt_template(qg_model, qg_prompt_path)
+            if question_type == "dynamicQ":
+                dq_prompt_path = os.path.join(args.prompt_dir, "dq", "zs-v0.txt")
+                question_chain, _ = dynamic_question_generation_prompt_template(qg_model, dq_prompt_path)
             asyncio.run(process_qg_items_async(valid_items, question_type, question_chain, args.dataset_name, args.batch_size, rows, num_valid_items))
-        elif args.qg_model_origin == "vllm-local":
+
+        elif args.qg_model_origin == "vllm-local": # dynamicQ questions are not supported for vllm-local models for now if needed can be added
             tokenizer, llm, sampling_params = get_model(
                 model_origin=args.qg_model_origin,
                 model_access_string=args.qg_model_access_string,

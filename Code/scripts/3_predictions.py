@@ -54,7 +54,7 @@ def main(args):
 
     rows = []
     # Use async processing only for OpenAI and Dartmouth models and vllm-serve
-    if args.use_async and args.pd_model_origin in ["openai", "dartmouth", "vllm-serve"]:
+    if args.use_async and args.pd_model_origin in ["openai", "dartmouth", "vllm-serve", "google"]:
         #loading the argument extraction model for async processing
         pd_model = get_model(
             model_origin=args.pd_model_origin,

@@ -202,11 +202,17 @@ async def process_qg_item_async(item, question_type, question_chain):
     document = item.get("context")
     arg_value = item.get("raw-initial-ground-truth", None)
 
-    # Generating loqa questions asynchronously
-    questions = await get_response_async(
-        question_chain,
-        {"role": role, "document": document, "gt_arguments": arg_value},
-    )
+    # Generating loqa and dynamicQ questions asynchronously
+    if question_type == "loqa":
+        questions = await get_response_async(
+            question_chain,
+            {"role": role, "document": document, "gt_arguments": arg_value},
+        )
+    elif question_type == "dynamicQ": #dynamicQ questions are generated without the ground truth arguments just the role and document
+        questions = await get_response_async(
+            question_chain,
+            {"role": role, "document": document},
+        )
     item[f"{question_type}_questions"] = questions
     return item
 
@@ -277,18 +283,27 @@ def get_leakage_checked_questions(leakage_check_output: str) -> Tuple[Optional[L
     except (json.JSONDecodeError, AttributeError):
         return None, None
 
-def leakage_check_zero_shot_loqa_questions(all_samples):
-    """Leakage check for zero-shot loqa questions."""
-    
+
+async def _leakage_check_zero_shot_loqa_questions_async(
+    all_samples: List[Dict[str, Any]],
+    batch_size: int = 50,
+) -> List[Dict[str, Any]]:
+    """Async leakage check for zero-shot loqa questions (batched with asyncio.gather)."""
+
     leakage_check_model = get_model(
         model_origin='dartmouth',
         model_access_string='openai.gpt-oss-120b'
     )
     leakage_check_prompt_chain, leakage_check_prompt_template = opt_leakage_check_prompt_template(
         leakage_check_model,
-        prompt_file_path=os.path.join('/dartfs-hpc/rc/home/j/f006f3j/lab/omar/LoQA/Prompts', "lc", "zs-v0.txt"),
+        prompt_file_path=os.path.join(
+            '/dartfs-hpc/rc/home/j/f006f3j/lab/omar/LoQA/Prompts',
+            "lc",
+            "zs-v0.txt",
+        ),
     )
-    for item in all_samples:
+
+    async def _process_one(item: Dict[str, Any]) -> None:
         role = item.get("role")
         current_questions = item.get("loqa_questions")
         gt_args = item.get("raw-initial-ground-truth")
@@ -298,7 +313,7 @@ def leakage_check_zero_shot_loqa_questions(all_samples):
             "current_questions": format_arguments_for_prompt(current_questions),
             "gt_arguments": format_arguments_for_prompt(processed_gt_args),
         }
-        leakage_check_output = get_response(
+        leakage_check_output = await get_response_async(
             leakage_check_prompt_chain,
             leakage_check_input,
             prompt_template=leakage_check_prompt_template,
@@ -311,7 +326,19 @@ def leakage_check_zero_shot_loqa_questions(all_samples):
             "final_questions": final_questions,
         }
         item["lc_info"] = lc_info
-        # Only overwrite questions when we got a valid result; otherwise keep current (e.g. after retry exhaustion or malformed JSON)
+        # Only overwrite questions when we got a valid result; otherwise keep current
         if final_questions is not None:
             item["loqa_questions"] = final_questions
+
+    total = len(all_samples)
+    with tqdm(total=total, desc="Leakage checking", unit="item") as pbar:
+        for i in range(0, total, batch_size):
+            batch = all_samples[i:i + batch_size]
+            await asyncio.gather(*[_process_one(item) for item in batch])
+            pbar.update(len(batch))
+
     return all_samples
+
+def leakage_check_zero_shot_loqa_questions(all_samples: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Sync wrapper around async leakage check for zero-shot loqa questions."""
+    return asyncio.run(_leakage_check_zero_shot_loqa_questions_async(all_samples))

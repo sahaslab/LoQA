@@ -11,12 +11,13 @@ source "$REPO_ROOT/.env"
 cd "$REPO_ROOT"
 
 # parameter for evaluation script
-SPLIT_NAME="gold-test" #"train" #"test" #"dev"
 QG_PROMPT_VERSION="zs-v0"
+# PD_PATH="$REPO_ROOT/Outputs/ft_outputs/pd/"
 PD_PATH="$REPO_ROOT/Outputs/pd/"
 PD_PROMPT_VERSION="zs-v0"
 RM_THRESHOLD=0.85
 VERBOSE_EVAL=true
+#EVALUATION_PATH="$REPO_ROOT/Outputs/ft_outputs/ev/"
 EVALUATION_PATH="$REPO_ROOT/Outputs/ev/"
 DO_COMPLEX_MATCH=true
 NUM_SAMPLES=-1
@@ -28,8 +29,8 @@ SAVE_SCORES=true
 USE_WANDB=false
 WANDB_PROJECT="loqa-scores"
 VERBOSE_SCORE=true
+# SCORES_PATH="$REPO_ROOT/Outputs/ft_outputs/sc/"
 SCORES_PATH="$REPO_ROOT/Outputs/sc/"
-
 # Log directory
 LOG_DIR="$REPO_ROOT/Outputs/logs"
 mkdir -p "$LOG_DIR"
@@ -46,6 +47,7 @@ run_evaluation() {
     local PD_MODEL_NAME=$2
     local DATASET_NAME=$3
     local QUESTION_TYPE=$4
+    local SPLIT_NAME=$5
 
     local LOG_FILE="$LOG_DIR/eval-${QUESTION_TYPE}-${QG_MODEL_NAME}-${DATASET_NAME}-${SPLIT_NAME}-${PD_MODEL_NAME}.out"
 
@@ -78,7 +80,7 @@ run_scoring() {
     local PD_MODEL_NAME=$2
     local DATASET_NAME=$3
     local QUESTION_TYPE=$4
-
+    local SPLIT_NAME=$5
     local LOG_FILE="$LOG_DIR/score-${QUESTION_TYPE}-${QG_MODEL_NAME}-${DATASET_NAME}-${SPLIT_NAME}-${PD_MODEL_NAME}.out"
 
     echo "Doing scoring for QG Model: $QG_MODEL_NAME, PD Model: $PD_MODEL_NAME, Dataset: $DATASET_NAME, Question Type: $QUESTION_TYPE"
@@ -111,23 +113,31 @@ run_scoring() {
 # Run evaluation for each dataset and prediction key
 
 # #for LoQA models
-QG_MODEL_NAMES=("gpt-oss-120b")
-PD_MODEL_NAMES=("gpt-oss-120b")
-DATASETS=("DiscourseEE") #"CaseReportBench" "PHEE" "DiscourseEE" "MACCROBAT"
-QUESTION_TYPES=("optimized_loqa") #"schema" "cot-schema" "loqa" "optimized_loqa"
+QG_MODEL_NAMES=('qwen3-4b' 'qwen3-8b' 'gpt-5.2-high' 'gemini-3.1-pro-high')
+PD_MODEL_NAMES=('gpt-oss-120b' 'qwen3-4b' 'qwen3-8b' 'gpt-5-mini-medium' 'gemini-3.1-pro-high') #"gpt-oss-120b" "qwen3-4b" "qwen3-8b" "gemini-3.1-pro-high"
+DATASETS=("CaseReportBench" "PHEE" "DiscourseEE" "MACCROBAT") #"CaseReportBench" "PHEE" "DiscourseEE" "MACCROBAT"
+QUESTION_TYPES=("dynamicQ") #"schema" "cot-schema" "loqa" "optimized_loqa"
 
-for QG_MODEL_NAME in "${QG_MODEL_NAMES[@]}"; do
-    for PD_MODEL_NAME in "${PD_MODEL_NAMES[@]}"; do
-        for DATASET in "${DATASETS[@]}"; do
-            for QUESTION_TYPE in "${QUESTION_TYPES[@]}"; do
-                echo "QG Model: $QG_MODEL_NAME, PD Model: $PD_MODEL_NAME"
-                echo "Evaluating with dataset: $DATASET, Question Type: $QUESTION_TYPE"
-                run_evaluation "$QG_MODEL_NAME" "$PD_MODEL_NAME" "$DATASET" "$QUESTION_TYPE"
-                run_scoring "$QG_MODEL_NAME" "$PD_MODEL_NAME" "$DATASET" "$QUESTION_TYPE"
+SPLITS=('test') #'test')
+for SPLIT in "${SPLITS[@]}"; do
+    for QG_MODEL_NAME in "${QG_MODEL_NAMES[@]}"; do
+        for PD_MODEL_NAME in "${PD_MODEL_NAMES[@]}"; do
+            for DATASET in "${DATASETS[@]}"; do
+                for QUESTION_TYPE in "${QUESTION_TYPES[@]}"; do
+                    echo "QG Model: $QG_MODEL_NAME, PD Model: $PD_MODEL_NAME"
+                    echo "Evaluating with dataset: $DATASET, Question Type: $QUESTION_TYPE", "Split: $SPLIT"
+                    run_evaluation "$QG_MODEL_NAME" "$PD_MODEL_NAME" "$DATASET" "$QUESTION_TYPE" "$SPLIT"
+                    run_scoring "$QG_MODEL_NAME" "$PD_MODEL_NAME" "$DATASET" "$QUESTION_TYPE" "$SPLIT"
+                done
             done
         done
     done
 done
+
+# QG_MODEL_NAMES=('qwen3-4b' 'qwen3-8b' 'gpt-5.2-high' 'gemini-3.1-pro-high')
+# PD_MODEL_NAMES=('qwen3-4b' 'qwen3-8b' 'gpt-oss-120b' 'gpt-5-mini-medium' 'gemini-3.1-pro-high') #"gpt-oss-120b" "qwen3-4b" "qwen3-8b" "gemini-3.1-pro-high"
+# DATASETS=("CaseReportBench" "PHEE" "DiscourseEE" "MACCROBAT") #"CaseReportBench" "PHEE" "DiscourseEE" "MACCROBAT"
+# QUESTION_TYPES=("loqa") #"schema" "cot-schema" "loqa" "optimized_loqa"
 
 #for Schema models (QG and PD models are same)
 # QG_MODEL_NAMES=("qwen3-4b" "qwen3-8b") # 'gpt-5-mini' 'gpt-4.1-mini' 'gpt-oss-120b' 'qwen3-32b'

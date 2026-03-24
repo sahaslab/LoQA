@@ -30,6 +30,7 @@ langchain-core
 langchain-community
 langchain-openai
 langchain-dartmouth
+langchain-google-genai
 
 # ------------------------
 # OpenAI client (for vLLM OpenAI-compatible API)
@@ -39,6 +40,7 @@ openai>=1.40.0
 # ------------------------
 # Utilities
 # ------------------------
+tinker
 tqdm>=4.66
 pyyaml>=6.0
 python-dotenv>=1.0
