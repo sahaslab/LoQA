@@ -29,7 +29,9 @@ conda create -n loqa python=3.11 -y
 conda activate loqa
 
 # 3. Install dependencies
-pip install -r requirements.txt
+pip install uv
+
+uv pip sync requirements.txt
 
 # 4. Download spaCy model (used in evaluation)
 python -m spacy download en_core_web_sm
