@@ -33,11 +33,11 @@ env/
 
 # Jupyter
 .ipynb_checkpoints/
-*.ipynb_checkpoints
 
 # IDEs and editors
 .idea/
 .vscode/
+.cursor/
 *.swp
 *.swo
 *~
@@ -46,28 +46,37 @@ env/
 .DS_Store
 Thumbs.db
 
-# Project outputs (predictions, evaluations, logs)
+# Project outputs (all generated artifacts)
 Outputs/
 outputs/
+
+# Experiment tracking
+wandb/
+
+# Old / deprecated folders
 xDev-old/
 xOld/
 
-# Experiment tracking (optional: remove if you want to track wandb runs)
-wandb/
-
-# SLURM / job logs (if not under Outputs/)
+# SLURM / job logs
+slurm-*.out
 *.out
 *.err
-slurm-*.out
 
-# Model and data caches (local or large)
+# Model and data caches
 .cache/
 *.cache
-.cursot
 
-# Optional: uncomment if Dataset is large or downloaded
-# Dataset/
+# Generated images in xDev (keep notebooks, not rendered images)
+xDev/*.png
+xDev/*.pdf
+xDev/*.jpg
+xDev/*.jpeg
 
-#Other files
+# Misc
 notes.txt
-.nfs000000062d6f3944000066ce
+.nfs*
+requirements-gpu.txt
+
+# Old shell scripts in Code/scripts/ (clean versions live in pipelines/)
+Code/scripts/*.sh
+Code/scripts/*.ipynb
