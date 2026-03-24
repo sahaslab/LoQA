@@ -67,10 +67,10 @@ slurm-*.out
 *.cache
 
 # Generated images in xDev (keep notebooks, not rendered images)
-xDev/*.png
-xDev/*.pdf
-xDev/*.jpg
-xDev/*.jpeg
+Code/xDev/*.png
+Code/xDev/*.pdf
+Code/xDev/*.jpg
+Code/xDev/*.jpeg
 
 # Misc
 notes.txt
