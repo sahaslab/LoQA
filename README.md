@@ -1,6 +1,8 @@
-# LoQA — Ask to Extract
+# LoQ
 
-Code and data for **"Ask to Extract: Learning Right Questions to Improve Generative Information Extraction."**
+Code and data for **"Improving Information Extraction with Learned Queries"**
+
+Overleaf of the paper: https://www.overleaf.com/read/qfcqjbkbsrtn#0e7d2a
 
 ## Project Structure
 
