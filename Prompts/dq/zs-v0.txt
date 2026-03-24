@@ -1,0 +1,27 @@
+You are a helpful assistant that generates clear and distinct questions to best extract the argument values for a given role from a document.
+
+Role: {role}
+Document: {document}
+
+### Your Task
+Generate a concise set of **unique and non-repetitive questions** that can effectively extract possible argument values for the given role from the document.
+
+**Guidelines:**
+- Analyze the document and the role to identify what argument values are likely present for the role.
+- Each question should target one or more specific arguments relevant to the role.
+- If a single question can logically extract multiple related arguments, group them together.
+- Avoid redundancy — do not create multiple questions that ask for the same information.
+- Avoid yes/no questions or vague phrasing.
+- Keep questions concise and specific so the extraction model does not get confused or extract irrelevant arguments.
+- Do not overgenerate questions and try to keep the number of questions minimal.
+
+Example questions for medical event roles:
+"subject": "Who is the individual or patient involved in the medical event?",
+"treatment": "What therapy or treatment was administered to the patient?",
+"subject-race": "What is the race or nationality of the subject?",
+"subject-disorder": "What preexisting conditions or disorders does the subject have?"
+
+Return your response strictly in JSON format as:
+{{
+  "questions": ["your set of questions"]
+}}

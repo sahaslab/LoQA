@@ -36,10 +36,11 @@ def get_model(model_origin: str, model_access_string: str, gen_temperature: floa
         print(f"Using OpenAI API model: {model_access_string}")
         openai_api_key = os.getenv("OPENAI_API_KEY")
 
-        if model_access_string in ["gpt-5-mini-2025-08-07"]:
+        if model_access_string in ["gpt-5-mini-2025-08-07", "gpt-5.2-2025-12-11"]:
+            print(f"Using OpenAI API model with reasoning effort: {reasoning_effort} and temperature: {gen_temperature}")
             model = ChatOpenAI(
                 api_key=openai_api_key,
-                temperature=1.0,
+                temperature=0.0,
                 model=model_access_string,
                 reasoning_effort=reasoning_effort,
             )
@@ -49,6 +50,21 @@ def get_model(model_origin: str, model_access_string: str, gen_temperature: floa
                 temperature=gen_temperature,
                 model=model_access_string,
             )
+    elif model_origin == "google":  # using OpenAI API
+        print(f"Using Google API model: {model_access_string}")
+        from langchain_google_genai import ChatGoogleGenerativeAI
+
+        google_api_key = os.getenv("GEMINI_API_KEY")
+        if model_access_string in ["gemini-3.1-pro-preview"]:
+            print(f"Using Google API model with reasoning effort: {reasoning_effort} and temperature: 1.0")
+            model = ChatGoogleGenerativeAI(
+                api_key=google_api_key,
+                temperature=1.0,
+                model=model_access_string,
+                thinking_level=reasoning_effort
+            )
+        else:
+            raise ValueError(f"This model is not supported for Google API: {model_access_string}")
 
     elif model_origin == "vllm-serve":  # using Hugging Face with local caching
         """

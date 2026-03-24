@@ -31,6 +31,14 @@ def question_generation_prompt_template(model, prompt_file_path: str, **jinja_va
     )
     return prompt_template | model | StrOutputParser(), prompt_template
 
+def dynamic_question_generation_prompt_template(model, prompt_file_path: str, **jinja_vars):
+    template = _load_prompt(prompt_file_path, **jinja_vars)
+    prompt_template = PromptTemplate(
+        input_variables = ['role', 'document'],
+        template = template
+    )
+    return prompt_template | model | StrOutputParser(), prompt_template
+
 def argument_extraction_prompt_template(model, prompt_file_path: str, **jinja_vars):
     template = _load_prompt(prompt_file_path, **jinja_vars)
     prompt_template = PromptTemplate(
