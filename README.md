@@ -86,7 +86,7 @@ Edit the configuration variables at the top of each shell script to customize da
 
 | Type | Description |
 |------|-------------|
-| `schema` | Fixed questions derived from role schema |
+| `schema` | Knowledge questions derived from role schema |
 | `cot-schema` | Chain-of-thought schema questions |
 | `loqa` | LLM-generated questions (GT visible during generation) |
 | `dynamicQ` | Zero-shot LLM-generated questions (no GT) |
